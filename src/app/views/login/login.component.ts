@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -14,11 +14,9 @@ import { AccessControl } from 'src/app/shared/accessControl/access-control';
 })
 export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
-  private loggedIn: boolean;
+  private loggedStr = 'logged';
 
-  constructor(private formBuilder: FormBuilder) {
-    this.loggedIn = false;
-  }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.createForm(new AccessControl());
@@ -32,10 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.formLogin.valid) {
-      console.log(this.formLogin.value);
-      this.loggedIn = true;
-    }
+    if (this.formLogin.valid) sessionStorage.setItem(this.loggedStr, 'true');
   }
 
   onCancel(): void {
@@ -43,12 +38,11 @@ export class LoginComponent implements OnInit {
   }
 
   onLogOut(): void {
-    this.loggedIn = false;
-    this.formLogin.reset(new AccessControl());
+    sessionStorage.removeItem(this.loggedStr);
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn;
+    return sessionStorage.getItem(this.loggedStr) === 'true';
   }
 
   getErrorMessage(): string {
