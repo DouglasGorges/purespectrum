@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
 
 import { ListComponent } from './views/books/list/list.component';
 import { BooksComponent } from './views/books/books.component';
@@ -23,6 +24,7 @@ import { BooksComponent } from './views/books/books.component';
 
     MatInputModule,
     MatFormFieldModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

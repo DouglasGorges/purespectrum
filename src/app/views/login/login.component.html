@@ -1,39 +1,41 @@
 <div *ngIf="isLoggedIn(); else showLogIn"><app-books></app-books></div>
 <ng-template #showLogIn
-  ><div>
-    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username" required />
-            <mat-error *ngIf="!formLogin.valid">{{
-              getErrorMessage()
-            }}</mat-error>
-          </mat-form-field>
+  ><div class="center">
+    <mat-card>
+      <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" required />
+              <mat-error *ngIf="!formLogin.valid">{{
+                getErrorMessage()
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                formControlName="password"
+                type="password"
+                required
+              />
+              <mat-error *ngIf="!formLogin.valid">{{
+                getErrorMessage()
+              }}</mat-error>
+            </mat-form-field>
+          </div>
         </div>
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              formControlName="password"
-              type="password"
-              required
-            />
-            <mat-error *ngIf="!formLogin.valid">{{
-              getErrorMessage()
-            }}</mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <input
-        type="reset"
-        class="btn btn-primary mt-4"
-        value="Cancel"
-        onclick=""
-      />
-      <input type="submit" class="btn btn-primary mt-4" value="Log In" />
-    </form>
+        <input
+          type="reset"
+          class="btn btn-primary mt-4"
+          value="Cancel"
+          onclick=""
+        />
+        <input type="submit" class="btn btn-primary mt-4" value="Log In" />
+      </form>
+    </mat-card>
   </div>
 </ng-template>
