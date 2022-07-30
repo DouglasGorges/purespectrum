@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { timer } from 'rxjs';
 import { AccessControl } from 'src/app/shared/accessControl/access-control';
 
 @Component({
@@ -15,6 +16,9 @@ import { AccessControl } from 'src/app/shared/accessControl/access-control';
 export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   loggedStr = 'logged';
+  loading = false;
+
+  readonly time = 1500;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -30,7 +34,25 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.formLogin.valid) sessionStorage.setItem(this.loggedStr, 'true');
+    if (this.formLogin.valid) {
+      this.initLoad();
+      timer(this.time).subscribe(() => {
+        sessionStorage.setItem(this.loggedStr, 'true');
+        this.stopLoad();
+      });
+    }
+  }
+
+  private stopLoad(): void {
+    this.loading = false;
+  }
+
+  private initLoad(): void {
+    this.loading = true;
+  }
+
+  isLoading(): boolean {
+    return this.loading;
   }
 
   onCancel(): void {

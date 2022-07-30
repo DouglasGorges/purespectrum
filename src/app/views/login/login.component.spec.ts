@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 
 import { LoginComponent } from './login.component';
@@ -22,13 +27,15 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should log in', () => {
+  it('should log in', fakeAsync(() => {
     component.formLogin.setValue({ username: 'test', password: 'test' });
 
     component.onSubmit();
 
+    tick(component.time);
+
     expect(sessionStorage.getItem(component.loggedStr)).toBeTruthy();
-  });
+  }));
 
   it('should logOut', () => {
     component.formLogin.setValue({ username: 'test', password: 'test' });

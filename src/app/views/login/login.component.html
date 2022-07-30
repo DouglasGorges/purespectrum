@@ -34,8 +34,12 @@
           value="Cancel"
           onclick=""
         />
-        <input type="submit" class="btn btn-primary mt-4" value="Log In" />
+        <input type="submit" class="btn btn-primary mt-4 right" value="Log In" />
       </form>
-    </mat-card>
+      <mat-card-footer *ngIf="isLoading()">
+        <mat-progress-bar style="padding-top: 1em;"
+          mode="indeterminate"
+        ></mat-progress-bar> </mat-card-footer
+    ></mat-card>
   </div>
 </ng-template>
