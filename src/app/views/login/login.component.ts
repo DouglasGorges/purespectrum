@@ -14,7 +14,7 @@ import { AccessControl } from 'src/app/shared/accessControl/access-control';
 })
 export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
-  private loggedStr = 'logged';
+  loggedStr = 'logged';
 
   constructor(private formBuilder: FormBuilder) {}
 
