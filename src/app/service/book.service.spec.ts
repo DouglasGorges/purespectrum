@@ -1,13 +1,13 @@
-import { TestBed } from '@angular/core/testing';
-
+import { HttpClient } from '@angular/common/http';
 import { BookService } from './book.service';
 
 describe('BookService', () => {
   let service: BookService;
+  let httpClientSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(BookService);
+    httpClientSpy = <jasmine.SpyObj<HttpClient>>(jasmine.createSpyObj('HttpClient', ['get']));
+    service = new BookService(httpClientSpy);
   });
 
   it('should be created', () => {
