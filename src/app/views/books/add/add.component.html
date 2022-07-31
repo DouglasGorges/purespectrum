@@ -1,0 +1,79 @@
+<div>
+  <mat-card
+    ><form
+      [formGroup]="formAddBook"
+      #formDirective="ngForm"
+      (ngSubmit)="onSubmit(formDirective)"
+    >
+      <div class="form-group">
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required />
+            <mat-error *ngIf="!formAddBook.valid">{{
+              getErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Year</mat-label>
+            <input
+              type="text"
+              pattern="\d*"
+              maxlength="4"
+              minlength="4"
+              placeholder="YYYY"
+              matInput
+              formControlName="year"
+              required
+            />
+            <mat-error *ngIf="!formAddBook.valid">{{
+              getErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- <mat-form-field appearance="fill">
+      <mat-label>Year</mat-label>
+      <input matInput [matDatepicker]="dp" formControlName="date" />
+      <mat-hint>YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker
+        #dp
+        startView="multi-year"
+        (monthSelected)="setMonthAndYear($event, dp)"
+        panelClass="example-month-picker"
+      >
+      </mat-datepicker>
+    </mat-form-field> -->
+
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Authors</mat-label>
+            <input matInput formControlName="authors" required />
+            <mat-error *ngIf="!formAddBook.valid">{{
+              getErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Summary</mat-label>
+            <input matInput formControlName="summary" required />
+            <mat-error *ngIf="!formAddBook.valid">{{
+              getErrorMessage()
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <input
+        type="reset"
+        class="btn btn-primary mt-4"
+        value="Clear"
+        onclick=""
+      />
+      <input type="submit" class="btn btn-primary mt-4 right" value="Add" />
+    </form>
+  </mat-card>
+</div>

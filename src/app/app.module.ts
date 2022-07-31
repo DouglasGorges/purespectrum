@@ -1,22 +1,34 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './views/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './views/login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatCardModule} from '@angular/material/card';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { ListComponent } from './views/books/list/list.component';
 import { BooksComponent } from './views/books/books.component';
+import { ListComponent } from './views/books/list/list.component';
+import { AddComponent } from './views/books/add/add.component';
+import { EditComponent } from './views/books/edit/edit.component';
+import { RemoveComponent } from './views/books/remove/remove.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ListComponent, BooksComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    ListComponent,
+    BooksComponent,
+    AddComponent,
+    EditComponent,
+    RemoveComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,7 +38,8 @@ import { BooksComponent } from './views/books/books.component';
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
