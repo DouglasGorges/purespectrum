@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Book } from 'src/app/models/book';
+import { BookService } from 'src/app/service/book.service';
 
 @Component({
   selector: 'app-add',
@@ -10,7 +18,11 @@ import { Book } from 'src/app/models/book';
 export class AddComponent implements OnInit {
   formAddBook!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private bookService: BookService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.createForm(new Book());
@@ -21,6 +33,11 @@ export class AddComponent implements OnInit {
       name: [book.name, Validators.required],
       year: [book.year, Validators.required],
       authors: [book.authors, Validators.required],
+      // authors: new FormBuilder().array([
+      //   new FormGroup({
+      //     authors: new FormControl(book.authors)
+      //   }),
+      // ]),
       summary: [book.summary, Validators.required],
     });
   }
@@ -28,10 +45,22 @@ export class AddComponent implements OnInit {
   onSubmit(formDirective: FormGroupDirective): void {
     if (!this.formAddBook.valid) return;
 
-    console.log(this.formAddBook.value);
+    this.formAddBook.value.authors = this.stringToArray(
+      this.formAddBook.value.authors as String
+    ); //TODO: remover isso e usar array no FormBUilder
 
-    formDirective.resetForm();
-    this.formAddBook.reset();
+    this.bookService.addBook(this.formAddBook.value).subscribe(() => {
+      this.toastr.success('New Book Added!');
+
+      formDirective.resetForm();
+      this.formAddBook.reset();
+    });
+  }
+
+  private stringToArray(arg: String): string[] {
+    return arg.split(',').map((item) => {
+      return item.trim();
+    });
   }
 
   getErrorMessage(): string {

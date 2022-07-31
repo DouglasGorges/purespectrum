@@ -33,25 +33,15 @@
             }}</mat-error>
           </mat-form-field>
         </div>
-
-        <!-- <mat-form-field appearance="fill">
-      <mat-label>Year</mat-label>
-      <input matInput [matDatepicker]="dp" formControlName="date" />
-      <mat-hint>YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-      <mat-datepicker
-        #dp
-        startView="multi-year"
-        (monthSelected)="setMonthAndYear($event, dp)"
-        panelClass="example-month-picker"
-      >
-      </mat-datepicker>
-    </mat-form-field> -->
-
         <div>
           <mat-form-field appearance="fill">
             <mat-label>Authors</mat-label>
-            <input matInput formControlName="authors" required />
+            <input
+              matInput
+              formControlName="authors"
+              placeholder="Separate by comma"
+              required
+            />
             <mat-error *ngIf="!formAddBook.valid">{{
               getErrorMessage()
             }}</mat-error>
