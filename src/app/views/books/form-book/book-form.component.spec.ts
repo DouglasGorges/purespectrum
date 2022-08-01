@@ -4,11 +4,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 
-import { AddComponent } from './add.component';
+import { BookFormComponent } from './book-form.component';
 
-describe('AddComponent', () => {
-  let component: AddComponent;
-  let fixture: ComponentFixture<AddComponent>;
+describe('bookFormComponent', () => {
+  let component: BookFormComponent;
+  let fixture: ComponentFixture<BookFormComponent>;
   
   let toastrService: jasmine.SpyObj<ToastrService>;
   let notificationServiceSpy: any;
@@ -17,13 +17,13 @@ describe('AddComponent', () => {
     toastrService = jasmine.createSpyObj<ToastrService>('ToasterService', ['error', 'success']);
 
     await TestBed.configureTestingModule({
-      declarations: [ AddComponent ],
+      declarations: [ BookFormComponent ],
       providers: [FormBuilder],
       imports: [HttpClientModule, CommonModule, ToastrModule.forRoot()]
     })
     .compileComponents()
 
-    fixture = TestBed.createComponent(AddComponent);
+    fixture = TestBed.createComponent(BookFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

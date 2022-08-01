@@ -1,20 +1,20 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListComponent } from './list.component';
+import { ListBookComponent } from './list-book.component';
 
 describe('ListComponent', () => {
-  let component: ListComponent;
-  let fixture: ComponentFixture<ListComponent>;
+  let component: ListBookComponent;
+  let fixture: ComponentFixture<ListBookComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListComponent ],
+      declarations: [ ListBookComponent ],
       imports: [HttpClientModule]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ListComponent);
+    fixture = TestBed.createComponent(ListBookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

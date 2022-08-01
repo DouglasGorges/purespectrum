@@ -1,1 +1,8 @@
-<app-login></app-login>
+<div *ngIf="isLoggedIn(); else showLogIn">
+  <mat-card>
+    <app-library></app-library>
+  </mat-card>
+</div>
+<ng-template #showLogIn
+  ><app-login></app-login>
+</ng-template>

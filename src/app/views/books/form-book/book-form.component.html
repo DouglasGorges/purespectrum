@@ -1,7 +1,7 @@
 <div>
   <mat-card
     ><form
-      [formGroup]="formAddBook"
+      [formGroup]="formBook"
       #formDirective="ngForm"
       (ngSubmit)="onSubmit(formDirective)"
     >
@@ -10,7 +10,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" required />
-            <mat-error *ngIf="!formAddBook.valid">{{
+            <mat-error *ngIf="!formBook.valid">{{
               getErrorMessage()
             }}</mat-error>
           </mat-form-field>
@@ -28,7 +28,7 @@
               formControlName="year"
               required
             />
-            <mat-error *ngIf="!formAddBook.valid">{{
+            <mat-error *ngIf="!formBook.valid">{{
               getErrorMessage()
             }}</mat-error>
           </mat-form-field>
@@ -42,7 +42,7 @@
               placeholder="Separate by comma"
               required
             />
-            <mat-error *ngIf="!formAddBook.valid">{{
+            <mat-error *ngIf="!formBook.valid">{{
               getErrorMessage()
             }}</mat-error>
           </mat-form-field>
@@ -51,7 +51,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Summary</mat-label>
             <input matInput formControlName="summary" required />
-            <mat-error *ngIf="!formAddBook.valid">{{
+            <mat-error *ngIf="!formBook.valid">{{
               getErrorMessage()
             }}</mat-error>
           </mat-form-field>
@@ -60,7 +60,7 @@
       <input
         type="reset"
         class="btn btn-primary mt-4"
-        value="{{ type?.type === 'Add' ? 'Clear' : 'Cancel' }}"
+        value="Cancel"
         onclick=""
         (click)="closeDialog()"
       />
