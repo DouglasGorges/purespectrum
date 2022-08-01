@@ -12,7 +12,9 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -20,7 +22,6 @@ import { BooksComponent } from './views/books/books.component';
 import { ListComponent } from './views/books/list/list.component';
 import { AddComponent } from './views/books/add/add.component';
 import { EditComponent } from './views/books/edit/edit.component';
-import { RemoveComponent } from './views/books/remove/remove.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,6 @@ import { RemoveComponent } from './views/books/remove/remove.component';
     BooksComponent,
     AddComponent,
     EditComponent,
-    RemoveComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +45,8 @@ import { RemoveComponent } from './views/books/remove/remove.component';
     MatCardModule,
     MatProgressBarModule,
     MatTabsModule,
+    MatTableModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],

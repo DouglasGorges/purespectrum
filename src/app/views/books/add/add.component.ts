@@ -49,9 +49,7 @@ export class AddComponent implements OnInit {
       this.formAddBook.value.authors as String
     ); //TODO: remover isso e usar array no FormBUilder
 
-    this.bookService.addBook(this.formAddBook.value).subscribe(() => {
-      this.toastr.success('New Book Added!');
-
+    this.bookService.addBook(this.formAddBook.value)?.subscribe(() => {
       formDirective.resetForm();
       this.formAddBook.reset();
     });

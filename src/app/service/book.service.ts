@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Book } from '../models/book';
 
@@ -7,30 +8,57 @@ import { Book } from '../models/book';
   providedIn: 'root',
 })
 export class BookService {
+  private apiUrl =
+    'https://publishing-house-service.herokuapp.com/api/v1/books/';
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
   };
 
-  private apiUrl =
-    'https://publishing-house-service.herokuapp.com/api/v1/books/';
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
-  constructor(private http: HttpClient) {}
-
-  async getBooks(): Promise<Book[] | undefined> {
+  getBooks(): Observable<Book[]> | undefined {
     try {
-      return lastValueFrom(this.http.get<Book[]>(`${this.apiUrl}`));
+      return this.http.get<Book[]>(`${this.apiUrl}`, this.httpOptions);
     } catch (error) {
-      throw new Error('Cannot get Books List');
+      this.toastr.error((error as Error).message);
+      return undefined;
     }
   }
 
-  addBook(book: Book): Observable<Book> {
+  addBook(book: Book): Observable<Book> | undefined {
     try {
-      return this.http.post<Book>(`${this.apiUrl}`, book, this.httpOptions);
+      const apiResponse = this.http.post<Book>(
+        `${this.apiUrl}`,
+        book,
+        this.httpOptions
+      );
+
+      apiResponse.subscribe(() => {
+        this.toastr.success('New Book Added!');
+      });
+
+      return apiResponse;
     } catch (error) {
-      throw new Error('Cannot get Books List');
+      this.toastr.error((error as Error).message);
+      return undefined;
+    }
+  }
+
+  removeBook(book: Book): void {
+    try {
+      const apiResponse = this.http.delete<Book>(
+        `${this.apiUrl}${book.id}`,
+        this.httpOptions
+      );
+
+      apiResponse.subscribe(() => {
+        this.toastr.success('Book deleted!');
+      });
+    } catch (error) {
+      this.toastr.error((error as Error).message);
     }
   }
 }
