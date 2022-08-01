@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionType } from './add/add.component';
 
 @Component({
   selector: 'app-books',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
-
+  componentType: ActionType = {type: 'Add'}
+  
   constructor() { }
 
   ngOnInit(): void {

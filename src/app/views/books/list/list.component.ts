@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { InjectSetupWrapper } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/service/book.service';
+import { EditComponent } from '../edit/edit.component';
 
 interface tableColumns {
   columnDef: string;
@@ -18,7 +21,7 @@ export class ListComponent implements OnInit {
   columns: tableColumns[];
   displayedColumns: string[];
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService, public dialog: MatDialog) {
     this.dataSource = [];
     this.displayedColumns = [];
 
@@ -67,7 +70,13 @@ export class ListComponent implements OnInit {
       ?.subscribe((apiResponse) => (this.dataSource = apiResponse));
   }
 
-  edit(book: Book): void {}
+  edit(book: Book): void {
+    this.dialog.open(EditComponent, {
+      data: {
+        book: book,
+      },
+    });
+  }
 
   remove(book: Book): void {
     this.bookService.removeBook(book);

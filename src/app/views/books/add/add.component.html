@@ -60,10 +60,15 @@
       <input
         type="reset"
         class="btn btn-primary mt-4"
-        value="Clear"
+        value="{{ type?.type === 'Add' ? 'Clear' : 'Cancel' }}"
         onclick=""
+        (click)="closeDialog()"
       />
-      <input type="submit" class="btn btn-primary mt-4 right" value="Add" />
+      <input
+        type="submit"
+        class="btn btn-primary mt-4 right"
+        value="{{ type?.type }}"
+      />
     </form>
   </mat-card>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,9 +6,14 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/service/book.service';
+import { ListComponent } from '../list/list.component';
+
+export interface ActionType {
+  type: 'Add' | 'Update';
+}
 
 @Component({
   selector: 'app-add',
@@ -16,12 +21,14 @@ import { BookService } from 'src/app/service/book.service';
   styleUrls: ['./add.component.css'],
 })
 export class AddComponent implements OnInit {
+  //TODO: Rename to BookComponent
+  @Input() type: ActionType | undefined;
   formAddBook!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private bookService: BookService,
-    private toastr: ToastrService
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -63,5 +70,9 @@ export class AddComponent implements OnInit {
 
   getErrorMessage(): string {
     return 'You must enter a value';
+  }
+
+  closeDialog(): void {
+    this.dialog.closeAll();
   }
 }
