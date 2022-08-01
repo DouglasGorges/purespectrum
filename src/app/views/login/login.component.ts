@@ -1,13 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { timer } from 'rxjs';
 import { AccessControl } from 'src/app/shared/accessControl/access-control';
 
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
