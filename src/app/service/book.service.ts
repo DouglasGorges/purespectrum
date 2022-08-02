@@ -1,17 +1,16 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { lastValueFrom, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Book } from '../models/book';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookService {
-  private apiUrl =
-    'https://publishing-house-service.herokuapp.com/api/v1/books/';
-
-  httpOptions = {
+  private apiUrl = `${environment.apiUrl}`;
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
@@ -20,45 +19,45 @@ export class BookService {
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   getBooks(): Observable<Book[]> | undefined {
-    try {
-      return this.http.get<Book[]>(`${this.apiUrl}`, this.httpOptions);
-    } catch (error) {
-      this.toastr.error((error as Error).message);
-      return undefined;
-    }
+    return this.http.get<Book[]>(`${this.apiUrl}`, this.httpOptions);
   }
 
   addBook(book: Book): Observable<Book> | undefined {
-    try {
-      const apiResponse = this.http.post<Book>(
-        `${this.apiUrl}`,
-        book,
-        this.httpOptions
-      );
+    var subject = new Subject<Book>();
 
-      apiResponse.subscribe(() => {
+    this.http
+      .post<Book>(`${this.apiUrl}`, book, this.httpOptions)
+      .subscribe((addedBook) => {
+        subject.next(addedBook);
         this.toastr.success('New Book Added!');
       });
 
-      return apiResponse;
-    } catch (error) {
-      this.toastr.error((error as Error).message);
-      return undefined;
-    }
+    return subject.asObservable();
   }
 
-  removeBook(book: Book): void {
-    try {
-      const apiResponse = this.http.delete<Book>(
-        `${this.apiUrl}${book.id}`,
-        this.httpOptions
-      );
+  updateBook(book: Book): Observable<Book> | undefined {
+    var subject = new Subject<Book>();
 
-      apiResponse.subscribe(() => {
-        this.toastr.success('Book deleted!');
+    this.http
+      .put<Book>(`${this.apiUrl}${book.id}`, book, this.httpOptions)
+      .subscribe((updatedBook) => {
+        subject.next(updatedBook);
+        this.toastr.success('Book Updated!');
       });
-    } catch (error) {
-      this.toastr.error((error as Error).message);
-    }
+
+    return subject.asObservable();
+  }
+
+  removeBook(book: Book): Observable<boolean> {
+    var subject = new Subject<boolean>();
+
+    this.http
+      .delete<Book>(`${this.apiUrl}${book.id}`, this.httpOptions)
+      .subscribe((success) => {
+        subject.next(!!success);
+        this.toastr.success('Book Deleted!');
+      });
+
+    return subject.asObservable();
   }
 }

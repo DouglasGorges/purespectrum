@@ -3,22 +3,26 @@ import { InjectSetupWrapper } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/service/book.service';
-import { EditComponent } from '../edit/edit.component';
+import {
+  BookDialogComponent,
+  DialogDataType,
+} from 'src/app/shared/dialog/dialog.component';
+import { ActionType } from '../form-book/book-form.component';
 
-interface tableColumns {
+interface TableColumns {
   columnDef: string;
   header: string;
   cell: (element: Book) => string;
 }
-
+@Injectable({ providedIn: 'root' })
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css'],
+  selector: 'app-list-book',
+  templateUrl: './list-book.component.html',
+  styleUrls: ['./list-book.component.css'],
 })
-export class ListComponent implements OnInit {
+export class ListBookComponent implements OnInit {
   dataSource: Book[];
-  columns: tableColumns[];
+  columns: TableColumns[];
   displayedColumns: string[];
 
   constructor(private bookService: BookService, public dialog: MatDialog) {
@@ -64,21 +68,27 @@ export class ListComponent implements OnInit {
     this.displayedColumns.push('actions');
   }
 
-  private loadData() {
+  loadData() {
     this.bookService
       .getBooks()
       ?.subscribe((apiResponse) => (this.dataSource = apiResponse));
   }
 
   edit(book: Book): void {
-    this.dialog.open(EditComponent, {
-      data: {
-        book: book,
-      },
-    });
+    const actionType: ActionType = { type: 'Update' };
+    const dialogData: DialogDataType = { book: book, type: actionType };
+
+    this.dialog
+      .open(BookDialogComponent, {
+        data: dialogData,
+      })
+      .afterClosed()
+      .subscribe(() => this.loadData());
   }
 
   remove(book: Book): void {
-    this.bookService.removeBook(book);
+    this.bookService.removeBook(book).subscribe(() => {
+      this.loadData();
+    });
   }
 }
