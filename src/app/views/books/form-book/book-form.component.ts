@@ -59,6 +59,14 @@ export class BookFormComponent implements OnInit {
       authors: new FormArray([], validateNotEmpty),
       summary: [book.summary, Validators.required],
     });
+
+    if (book.authors) {
+      for (const author of book.authors) {
+        (this.formBook.get('authors') as FormArray).push(
+          new FormControl(author, Validators.required)
+        );
+      }
+    }
   }
 
   addAuthor() {
