@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
+import { Book } from 'src/app/models/book';
 import { environment } from 'src/environments/environment';
-import { Book } from '../models/book';
 
 @Injectable({
   providedIn: 'root',

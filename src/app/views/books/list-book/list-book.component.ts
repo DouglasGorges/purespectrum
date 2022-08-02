@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { InjectSetupWrapper } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { Book } from 'src/app/models/book';
-import { BookService } from 'src/app/service/book.service';
+import { BookService } from 'src/app/service/books-service/book.service';
 import {
   BookDialogComponent,
   DialogDataType,

@@ -24,7 +24,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { ListBookComponent } from './views/books/list-book/list-book.component';
 import { BookFormComponent } from './views/books/form-book/book-form.component';
-import { ErrorsInterceptor } from './shared/errors/errors-interceptor/errors-interceptor';
+import { ErrorsInterceptor } from './interceptors/errors-interceptor/errors-interceptor';
 import { AddBookComponent } from './views/books/add-book/add-book.component';
 import { LibraryComponent } from './views/library/library.component';
 import { BookDialogComponent } from './shared/dialog/dialog.component';

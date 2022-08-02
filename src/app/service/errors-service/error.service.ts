@@ -17,10 +17,14 @@ export class ErrorService {
       );
     } else {
       this.toastr.error(
-        `${err.error.detail}`,
+        this.detailExtractor(err),
         `API returned code ${err.status}`
       );
     }
-    console.error(err.error)
+    console.error(err.error);
+  }
+
+  private detailExtractor(err: HttpErrorResponse): string {
+    return Array.isArray(err.error.detail) ? err.statusText : err.error.detail;
   }
 }

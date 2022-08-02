@@ -12,8 +12,7 @@ import {
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Book } from 'src/app/models/book';
-import { BookService } from 'src/app/service/book.service';
-import { ListBookComponent } from '../list-book/list-book.component';
+import { BookService } from 'src/app/service/books-service/book.service';
 
 export interface ActionType {
   type: 'Add' | 'Update';
