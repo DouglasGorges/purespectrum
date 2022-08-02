@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { InjectSetupWrapper } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Book } from 'src/app/models/book';
 import { BookService } from 'src/app/service/books-service/book.service';
 import {
@@ -22,12 +23,14 @@ interface TableColumns {
 })
 export class ListBookComponent implements OnInit {
   dataSource: Book[];
+  tableDataSource: MatTableDataSource<Book>;
   columns: TableColumns[];
   displayedColumns: string[];
 
   constructor(private bookService: BookService, public dialog: MatDialog) {
     this.dataSource = [];
     this.displayedColumns = [];
+    this.tableDataSource = new MatTableDataSource();
 
     this.columns = [
       {
@@ -71,7 +74,13 @@ export class ListBookComponent implements OnInit {
   loadData() {
     this.bookService
       .getBooks()
-      ?.subscribe((apiResponse) => (this.dataSource = apiResponse));
+      ?.subscribe((apiResponse) => {this.dataSource = apiResponse; this.tableDataSource = new MatTableDataSource(this.dataSource);
+      });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.tableDataSource.filter = filterValue.trim().toLowerCase();
   }
 
   edit(book: Book): void {
