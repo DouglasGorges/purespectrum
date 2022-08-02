@@ -1,8 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  AbstractControl,
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   FormGroupDirective,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +17,14 @@ import { ListBookComponent } from '../list-book/list-book.component';
 
 export interface ActionType {
   type: 'Add' | 'Update';
+}
+
+function validateNotEmpty(arr: AbstractControl) {
+  return (arr as FormArray).length
+    ? null
+    : {
+        invalidSize: true,
+      };
 }
 
 @Component({
@@ -24,11 +37,11 @@ export class BookFormComponent implements OnInit {
   @Input() type?: ActionType;
 
   formBook!: FormGroup;
+  newAuthor: FormControl<string | null> = new FormControl<string>('');
 
   constructor(
     private formBuilder: FormBuilder,
     private bookService: BookService,
-    private listBooks: ListBookComponent,
     public dialog: MatDialog
   ) {}
 
@@ -41,51 +54,52 @@ export class BookFormComponent implements OnInit {
     if (!this.book) book = new Book();
 
     this.formBook = this.formBuilder.group({
+      id: [book.id],
       name: [book.name, Validators.required],
       year: [book.year, Validators.required],
-      authors: [book.authors, Validators.required],
-      // authors: new FormBuilder().array([
-      //   new FormGroup({
-      //     authors: new FormControl(book.authors)
-      //   }),
-      // ]),
+      authors: new FormArray([], validateNotEmpty),
       summary: [book.summary, Validators.required],
-      id: [book.id]
     });
+  }
+
+  addAuthor() {
+    (this.formBook.get('authors') as FormArray).insert(
+      0,
+      new FormControl(this.newAuthor.value, [Validators.required])
+    );
+  }
+
+  removeAuthor(index: number): void {
+    (this.formBook.get('authors') as FormArray).removeAt(index);
+  }
+
+  get authors() {
+    return this.formBook.get('authors') as FormArray;
   }
 
   onSubmit(formDirective: FormGroupDirective): void {
     if (!this.formBook.valid) return;
 
-    this.formBook.value.authors = this.stringToArray(
-      this.formBook.value.authors as string
-    ); //TODO: remover isso e usar array no FormBUilder
-
     if (this.isNewBook(this.book)) {
       this.bookService.addBook(this.formBook.value)?.subscribe(() => {
-        formDirective.resetForm();
-        this.formBook.reset();
+        this.clearForm(formDirective);
       });
     } else {
       this.bookService.updateBook(this.formBook.value)?.subscribe(() => {});
     }
   }
 
+  private clearForm(formDirective: FormGroupDirective): void {
+    formDirective.resetForm();
+    this.authors.clear();
+    this.formBook.reset();
+  }
+
   isNewBook(book: Book | undefined) {
     return !book?.id;
   }
 
-  private stringToArray(arg: string | number): string[] {
-    arg = arg.toString();
-    return arg
-      .split(',')
-      .map((item) => {
-        return item.trim();
-      })
-      .filter((e) => e);
-  }
-
-  getErrorMessage(): string {
+  get errorMessage(): string {
     return 'You must enter a value';
   }
 
