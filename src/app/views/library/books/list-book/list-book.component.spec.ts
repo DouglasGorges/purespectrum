@@ -1,16 +1,18 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { MatDialogModule } from '@angular/material/dialog'
+import { ToastrModule } from 'ngx-toastr'
 
 import { ListBookComponent } from './list-book.component'
 
-describe('ListComponent', () => {
+describe('ListBookComponent', () => {
   let component: ListBookComponent
   let fixture: ComponentFixture<ListBookComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ListBookComponent],
-      imports: [HttpClientModule]
+      imports: [HttpClientModule, ToastrModule.forRoot(), MatDialogModule]
     }).compileComponents()
 
     fixture = TestBed.createComponent(ListBookComponent)

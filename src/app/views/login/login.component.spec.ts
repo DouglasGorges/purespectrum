@@ -32,25 +32,8 @@ describe('LoginComponent', () => {
 
     component.onSubmit()
 
-    tick(component.time)
+    tick(component.timeBeforeLogIn)
 
     expect(sessionStorage.getItem(component.loggedStr)).toBeTruthy()
   }))
-
-  it('should logOut', () => {
-    component.formLogin.setValue({ username: 'test', password: 'test' })
-    component.onSubmit()
-
-    component.onLogOut()
-
-    expect(sessionStorage.getItem(component.loggedStr)).not.toBeTruthy()
-  })
-
-  it('should cancel', () => {
-    component.formLogin.setValue({ username: 'test', password: 'test' })
-    component.onCancel()
-
-    expect(component.formLogin.value.username).not.toBeTruthy()
-    expect(component.formLogin.value.password).not.toBeTruthy()
-  })
 })

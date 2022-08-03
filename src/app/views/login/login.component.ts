@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup
 
   private loading = false
-  private readonly loggedStr = 'logged'
-  private readonly timeBeforeLogIn = 1500
+  readonly loggedStr = 'logged'
+  readonly timeBeforeLogIn = 1500
 
   constructor (private formBuilder: FormBuilder) {}
 
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  protected onSubmit (): void {
+  onSubmit (): void {
     if (this.formLogin.valid) {
       this.startLoad()
       timer(this.timeBeforeLogIn).subscribe(() => {
@@ -51,9 +51,9 @@ export class LoginComponent implements OnInit {
     return this.loading
   }
 
-  logOut (): void {
-    sessionStorage.removeItem(this.loggedStr)
-  }
+  // logOut (): void {
+  //   sessionStorage.removeItem(this.loggedStr)
+  // }
 
   get isLoggedIn (): boolean {
     return sessionStorage.getItem(this.loggedStr) === 'true'

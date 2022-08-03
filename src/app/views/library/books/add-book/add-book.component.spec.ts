@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { MatDialogModule } from '@angular/material/dialog'
 
 import { AddBookComponent } from './add-book.component'
 
@@ -8,7 +9,8 @@ describe('AddBookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddBookComponent]
+      declarations: [AddBookComponent],
+      imports: [MatDialogModule]
     }).compileComponents()
 
     fixture = TestBed.createComponent(AddBookComponent)
