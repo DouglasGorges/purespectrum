@@ -18,7 +18,7 @@ export class BookService {
   subjectNotifier: Subject<null> = new Subject<null>();
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
- 
+
   notifyAboutChange() {
     this.subjectNotifier.next(null);
   }
@@ -28,7 +28,7 @@ export class BookService {
   }
 
   addBook(book: Book): Observable<Book> | undefined {
-    var subject = new Subject<Book>();
+    const subject = new Subject<Book>();
 
     this.http
       .post<Book>(`${this.apiUrl}`, book, this.httpOptions)
@@ -41,7 +41,7 @@ export class BookService {
   }
 
   updateBook(book: Book): Observable<Book> | undefined {
-    var subject = new Subject<Book>();
+    const subject = new Subject<Book>();
 
     this.http
       .put<Book>(`${this.apiUrl}${book.id}`, book, this.httpOptions)
@@ -54,7 +54,7 @@ export class BookService {
   }
 
   removeBook(book: Book): Observable<boolean> {
-    var subject = new Subject<boolean>();
+    const subject = new Subject<boolean>();
 
     this.http
       .delete<Book>(`${this.apiUrl}${book.id}`, this.httpOptions)

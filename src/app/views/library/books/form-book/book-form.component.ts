@@ -104,7 +104,7 @@ export class BookFormComponent implements OnInit {
         this.clearForm(formDirective);
       });
     } else {
-      this.bookService.updateBook(this.formBook.value)?.subscribe(() => {});
+      this.bookService.updateBook(this.formBook.value);
     }
     this.notifyForChange();
   }
