@@ -12,8 +12,6 @@ import { ActionType } from '../form-book/book-form.component';
   styleUrls: ['./add-book.component.css'],
 })
 export class AddBookComponent {
-  someSubscription: any;
-
   constructor(public dialog: MatDialog) {}
 
   protected addBook(): void {

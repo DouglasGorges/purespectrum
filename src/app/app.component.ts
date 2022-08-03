@@ -8,7 +8,8 @@ import { LoginComponent } from './views/login/login.component';
 })
 export class AppComponent {
   constructor(private loginComponent: LoginComponent) {}
-  isLoggedIn(): boolean {
-    return this.loginComponent.isLoggedIn();
+
+  protected isLoggedIn(): boolean {
+    return this.loginComponent.isLoggedIn;
   }
 }

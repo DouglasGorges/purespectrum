@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Book } from 'src/app/models/book';
-import { ActionType } from 'src/app/views/books/form-book/book-form.component';
+import { ActionType } from 'src/app/views/library/books/form-book/book-form.component';
 
 export interface DialogDataType {
   book: Book | undefined;

@@ -1,11 +1,10 @@
+import { Injectable } from '@angular/core';
 import {
-  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ErrorService } from '../../service/errors-service/error.service';
 
