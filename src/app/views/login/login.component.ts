@@ -1,65 +1,65 @@
-import { timer } from 'rxjs';
-import { Component, Injectable, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccessControl } from 'src/app/shared/accessControl/access-control';
+import { timer } from 'rxjs'
+import { Component, Injectable, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { AccessControl } from 'src/app/shared/accessControl/access-control'
 
 @Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  formLogin!: FormGroup;
-  
-  private loading = false;
-  private readonly loggedStr = 'logged';
-  private readonly timeBeforeLogIn = 1500;
+  formLogin!: FormGroup
 
-  constructor(private formBuilder: FormBuilder) {}
+  private loading = false
+  private readonly loggedStr = 'logged'
+  private readonly timeBeforeLogIn = 1500
 
-  ngOnInit(): void {
-    this.createForm(new AccessControl());
+  constructor (private formBuilder: FormBuilder) {}
+
+  ngOnInit (): void {
+    this.createForm(new AccessControl())
   }
 
-  private createForm(login: AccessControl): void {
+  private createForm (login: AccessControl): void {
     this.formLogin = this.formBuilder.group({
       username: [login.username, Validators.required],
-      password: [login.password, Validators.required],
-    });
+      password: [login.password, Validators.required]
+    })
   }
 
-  protected onSubmit(): void {
+  protected onSubmit (): void {
     if (this.formLogin.valid) {
-      this.startLoad();
+      this.startLoad()
       timer(this.timeBeforeLogIn).subscribe(() => {
-        sessionStorage.setItem(this.loggedStr, 'true');
-        this.stopLoad();
-      });
+        sessionStorage.setItem(this.loggedStr, 'true')
+        this.stopLoad()
+      })
     }
   }
 
-  private stopLoad(): void {
-    this.loading = false;
+  private stopLoad (): void {
+    this.loading = false
   }
 
-  private startLoad(): void {
-    this.loading = true;
+  private startLoad (): void {
+    this.loading = true
   }
 
-  protected get isLoading(): boolean {
-    return this.loading;
+  protected get isLoading (): boolean {
+    return this.loading
   }
 
-  logOut(): void {
-    sessionStorage.removeItem(this.loggedStr);
+  logOut (): void {
+    sessionStorage.removeItem(this.loggedStr)
   }
 
-  get isLoggedIn(): boolean {
-    return sessionStorage.getItem(this.loggedStr) === 'true';
+  get isLoggedIn (): boolean {
+    return sessionStorage.getItem(this.loggedStr) === 'true'
   }
 
-  protected get errorMessage(): string {
-    return 'You must enter a value';
+  protected get errorMessage (): string {
+    return 'You must enter a value'
   }
 }

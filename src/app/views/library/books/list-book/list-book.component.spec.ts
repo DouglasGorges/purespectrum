@@ -1,25 +1,24 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http'
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { ListBookComponent } from './list-book.component';
+import { ListBookComponent } from './list-book.component'
 
 describe('ListComponent', () => {
-  let component: ListBookComponent;
-  let fixture: ComponentFixture<ListBookComponent>;
+  let component: ListBookComponent
+  let fixture: ComponentFixture<ListBookComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListBookComponent ],
+      declarations: [ListBookComponent],
       imports: [HttpClientModule]
-    })
-    .compileComponents();
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(ListBookComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ListBookComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

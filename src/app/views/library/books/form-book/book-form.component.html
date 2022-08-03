@@ -1,57 +1,83 @@
-<form [formGroup]="formBook" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
+<form
+  [formGroup]="formBook"
+  #formDirective="ngForm"
+  (ngSubmit)="onSubmit(formDirective)"
+>
   <div class="form-group">
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" required />
-        <mat-error *ngIf="!formBook.valid">{{
-          errorMessage
-          }}</mat-error>
+        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Year</mat-label>
-        <input type="text" pattern="\d*" maxlength="4" minlength="4" placeholder="YYYY" matInput formControlName="year"
-          required />
-        <mat-error *ngIf="!formBook.valid">{{
-          errorMessage
-          }}</mat-error>
+        <input
+          type="text"
+          pattern="\d*"
+          maxlength="4"
+          minlength="4"
+          placeholder="YYYY"
+          matInput
+          formControlName="year"
+          required
+        />
+        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
       </mat-form-field>
     </div>
     <ng-container formArrayName="authors">
       <mat-form-field appearance="fill">
         <mat-label>Authors</mat-label>
         <input matInput [formControl]="newAuthor" />
-        <button matSuffix mat-icon-button aria-label="Add" (click)="addAuthor()">
+        <button
+          matSuffix
+          mat-icon-button
+          aria-label="Add"
+          (click)="addAuthor()"
+        >
           <mat-icon>person_add</mat-icon>
         </button>
-        <mat-error *ngIf="!formBook.valid">{{
-          errorMessage
-          }}</mat-error>
+        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
       </mat-form-field>
     </ng-container>
     <ng-container>
       <mat-list>
         <mat-list-item *ngFor="let control of authors.controls; index as i">
           {{ formBook.value.authors[i] }}
-          <button matSuffix mat-icon-button aria-label="Remove" (click)="removeAuthor(i)">
+          <button
+            matSuffix
+            mat-icon-button
+            aria-label="Remove"
+            (click)="removeAuthor(i)"
+          >
             <mat-icon>person_remove</mat-icon>
           </button>
         </mat-list-item>
       </mat-list>
-      <mat-label *ngIf="!authors.controls.length">The book needs at least one Author</mat-label>
+      <mat-label *ngIf="!authors.controls.length"
+        >The book needs at least one Author</mat-label
+      >
     </ng-container>
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Summary</mat-label>
         <input matInput formControlName="summary" required />
-        <mat-error *ngIf="!formBook.valid">{{
-          errorMessage
-          }}</mat-error>
+        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
       </mat-form-field>
     </div>
   </div>
-  <input type="reset" class="btn btn-primary mt-4" value="Cancel" onclick="" (click)="closeDialog()" />
-  <input type="submit" class="btn btn-primary mt-4 right" value="{{ type?.type }}" />
+  <input
+    type="reset"
+    class="btn btn-primary mt-4"
+    value="Cancel"
+    onclick=""
+    (click)="closeDialog()"
+  />
+  <input
+    type="submit"
+    class="btn btn-primary mt-4 right"
+    value="{{ type?.type }}"
+  />
 </form>

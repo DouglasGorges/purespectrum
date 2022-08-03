@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import { LoginComponent } from './views/login/login.component';
+import { Component } from '@angular/core'
+import { LoginComponent } from './views/login/login.component'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private loginComponent: LoginComponent) {}
+  constructor (private loginComponent: LoginComponent) {}
 
-  protected isLoggedIn(): boolean {
-    return this.loginComponent.isLoggedIn;
+  protected isLoggedIn (): boolean {
+    return this.loginComponent.isLoggedIn
   }
 }

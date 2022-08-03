@@ -2,55 +2,55 @@ import {
   ComponentFixture,
   fakeAsync,
   TestBed,
-  tick,
-} from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+  tick
+} from '@angular/core/testing'
+import { FormBuilder } from '@angular/forms'
 
-import { LoginComponent } from './login.component';
+import { LoginComponent } from './login.component'
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  let component: LoginComponent
+  let fixture: ComponentFixture<LoginComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      providers: [FormBuilder],
-    }).compileComponents();
+      providers: [FormBuilder]
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(LoginComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    expect(component).toBeTruthy()
+  })
 
   it('should log in', fakeAsync(() => {
-    component.formLogin.setValue({ username: 'test', password: 'test' });
+    component.formLogin.setValue({ username: 'test', password: 'test' })
 
-    component.onSubmit();
+    component.onSubmit()
 
-    tick(component.time);
+    tick(component.time)
 
-    expect(sessionStorage.getItem(component.loggedStr)).toBeTruthy();
-  }));
+    expect(sessionStorage.getItem(component.loggedStr)).toBeTruthy()
+  }))
 
   it('should logOut', () => {
-    component.formLogin.setValue({ username: 'test', password: 'test' });
-    component.onSubmit();
+    component.formLogin.setValue({ username: 'test', password: 'test' })
+    component.onSubmit()
 
-    component.onLogOut();
+    component.onLogOut()
 
-    expect(sessionStorage.getItem(component.loggedStr)).not.toBeTruthy();
-  });
+    expect(sessionStorage.getItem(component.loggedStr)).not.toBeTruthy()
+  })
 
   it('should cancel', () => {
-    component.formLogin.setValue({ username: 'test', password: 'test' });
-    component.onCancel();
+    component.formLogin.setValue({ username: 'test', password: 'test' })
+    component.onCancel()
 
-    expect(component.formLogin.value.username).not.toBeTruthy();
-    expect(component.formLogin.value.password).not.toBeTruthy();
-  });
-});
+    expect(component.formLogin.value.username).not.toBeTruthy()
+    expect(component.formLogin.value.password).not.toBeTruthy()
+  })
+})
