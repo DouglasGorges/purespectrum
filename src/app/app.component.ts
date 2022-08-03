@@ -7,9 +7,9 @@ import { LoginComponent } from './views/login/login.component'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor (private loginComponent: LoginComponent) {}
+  constructor (public loginComponent: LoginComponent) {}
 
-  protected isLoggedIn (): boolean {
+  isLoggedIn (): boolean {
     return this.loginComponent.isLoggedIn
   }
 }

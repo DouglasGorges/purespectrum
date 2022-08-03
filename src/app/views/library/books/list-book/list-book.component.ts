@@ -11,9 +11,9 @@ import { BookService } from 'src/app/service/books-service/book.service'
 import { Subscription } from 'rxjs'
 
 interface TableColumns {
-  columnDef: string;
-  header: string;
-  cell: (element: Book) => string;
+  columnDef: string
+  header: string
+  cell: (element: Book) => string
 }
 
 @Component({
@@ -22,8 +22,8 @@ interface TableColumns {
   styleUrls: ['./list-book.component.css']
 })
 export class ListBookComponent implements OnInit, OnDestroy {
-  private dataSource: Book[]
-  protected tableDataSource: MatTableDataSource<Book>
+  dataSource: Book[]
+  tableDataSource: MatTableDataSource<Book>
 
   protected columns: TableColumns[]
   protected displayedColumns: string[]
@@ -80,18 +80,18 @@ export class ListBookComponent implements OnInit, OnDestroy {
   }
 
   private loadData (): void {
-    this.bookService.getBooks()?.subscribe((apiResponse) => {
+    this.bookService.getBooks().subscribe((apiResponse) => {
       this.dataSource = apiResponse
       this.tableDataSource = new MatTableDataSource(this.dataSource)
     })
   }
 
-  protected applyFilter (event: Event): void {
+  applyFilter (event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
   }
 
-  protected edit (book: Book): void {
+  edit (book: Book): void {
     const dialogData: DialogDataType = {
       book,
       type: { type: 'Update' } as ActionType
@@ -102,9 +102,14 @@ export class ListBookComponent implements OnInit, OnDestroy {
     })
   }
 
-  protected remove (book: Book): void {
-    this.bookService.removeBook(book).subscribe(() => {
+  remove (book: Book): boolean {
+    let itWasRemoved = false
+
+    this.bookService.removeBook(book).subscribe((success) => {
       this.loadData()
+      itWasRemoved = success
     })
+
+    return itWasRemoved
   }
 }

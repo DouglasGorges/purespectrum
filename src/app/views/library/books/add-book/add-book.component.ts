@@ -14,7 +14,7 @@ import { ActionType } from '../form-book/book-form.component'
 export class AddBookComponent {
   constructor (public dialog: MatDialog) {}
 
-  protected addBook (): void {
+  addBook (): void {
     const dialogData: DialogDataType = {
       book: undefined,
       type: { type: 'Add' } as ActionType

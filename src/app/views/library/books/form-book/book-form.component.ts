@@ -102,7 +102,7 @@ export class BookFormComponent implements OnInit {
     if (!this.formBook.valid) return
 
     if (this.isNewBook(this.book)) {
-      this.bookService.addBook(this.formBook.value)?.subscribe(() => {
+      this.bookService.addBook(this.formBook.value).subscribe(() => {
         this.clearForm(formDirective)
       })
     } else {
