@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import {
   BookDialogComponent,
   DialogDataType
-} from 'src/app/shared/dialog/dialog.component'
+} from 'src/app/shared/dialog/book-dialog.component'
 import { ActionType } from '../form-book/book-form.component'
 
 @Component({

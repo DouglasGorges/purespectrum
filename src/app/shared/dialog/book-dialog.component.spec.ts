@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { BookDialogComponent } from './dialog.component'
+import { BookDialogComponent } from './book-dialog.component'
 
 describe('BookDialogComponent', () => {
   let component: BookDialogComponent

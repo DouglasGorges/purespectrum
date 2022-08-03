@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { ToastrModule } from 'ngx-toastr'
 import { BookFormComponent } from './book-form.component'
 
-describe('bookFormComponent', () => {
+describe('BookFormComponent', () => {
   let component: BookFormComponent
   let fixture: ComponentFixture<BookFormComponent>
 

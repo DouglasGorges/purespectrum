@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import {
   BookDialogComponent,
   DialogDataType
-} from 'src/app/shared/dialog/dialog.component'
+} from 'src/app/shared/dialog/book-dialog.component'
 import { Book } from 'src/app/models/book'
 import { ActionType } from '../form-book/book-form.component'
 import { BookService } from 'src/app/service/books-service/book.service'
