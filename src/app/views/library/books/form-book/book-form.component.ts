@@ -81,6 +81,8 @@ export class BookFormComponent implements OnInit {
   }
 
   protected addAuthor (): void {
+    if (!this.newAuthor.value) return
+
     (this.formBook.get('authors') as FormArray).insert(
       0,
       new FormControl(this.newAuthor.value, [Validators.required])
