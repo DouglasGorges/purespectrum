@@ -6,7 +6,7 @@
     "start": "npm run lint:fix && ng serve",
     "build": "npm run lint && npm run test && npm run angular-builds",
     "watch": "ng build --watch --configuration development",
-    "test": "shx rm -rf coverage && ng test --browsers=ChromeHeadlessNoSandbox",
+    "test": "shx rm -rf coverage && ng test",
     "angular-builds": "ng build",
     "lint": "npx eslint --max-warnings 0",
     "lint:fix": "npx eslint --fix"
