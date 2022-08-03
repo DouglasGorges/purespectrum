@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LibraryComponent } from './library.component'
+import { ErrorsInterceptor } from './errors-interceptor'
 
-describe('LibraryComponent', () => {
-  let component: LibraryComponent
-  let fixture: ComponentFixture<LibraryComponent>
+describe('ErrorsInterceptorComponent', () => {
+  let component: ErrorsInterceptor
+  let fixture: ComponentFixture<ErrorsInterceptor>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LibraryComponent]
+      declarations: [ErrorsInterceptor]
     }).compileComponents()
 
-    fixture = TestBed.createComponent(LibraryComponent)
+    fixture = TestBed.createComponent(ErrorsInterceptor)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

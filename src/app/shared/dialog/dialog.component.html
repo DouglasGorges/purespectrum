@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ book?.name || 'New Book' }}</h1>
-<div mat-dialog-content>
+<h1 mat-dialog-title>{{ book?.name || "New Book" }}</h1>
+<ng-container mat-dialog-content>
   <app-book-form [book]="book" [type]="componentType"></app-book-form>
-</div>
+</ng-container>

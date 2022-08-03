@@ -1,7 +1,7 @@
-import { AccessControl } from './access-control';
+import { AccessControl } from './access-control'
 
 describe('AccessControl', () => {
   it('should create an instance', () => {
-    expect(new AccessControl()).toBeTruthy();
-  });
-});
+    expect(new AccessControl()).toBeTruthy()
+  })
+})
