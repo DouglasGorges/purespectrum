@@ -7,8 +7,6 @@ import {
   FormControl,
   FormGroup,
   FormGroupDirective,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,8 +17,8 @@ export interface ActionType {
   type: 'Add' | 'Update';
 }
 
-function validateNotEmpty(arr: AbstractControl) {
-  return (arr as FormArray).length
+function validateNotEmpty(array: AbstractControl) {
+  return (array as FormArray).length
     ? null
     : {
         invalidSize: true,
@@ -36,8 +34,8 @@ export class BookFormComponent implements OnInit {
   @Input() book?: Book;
   @Input() type?: ActionType;
 
-  formBook!: FormGroup;
-  newAuthor: FormControl<string | null> = new FormControl<string>('');
+  protected formBook!: FormGroup;
+  protected newAuthor: FormControl<string | null> = new FormControl<string>('');
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,7 +50,7 @@ export class BookFormComponent implements OnInit {
     this.defineAutoTrimToFormInputs();
   }
 
-  private defineAutoTrimToFormInputs() {
+  private defineAutoTrimToFormInputs(): void {
     const original = DefaultValueAccessor.prototype.registerOnChange;
     DefaultValueAccessor.prototype.registerOnChange = function (fn) {
       return original.call(this, (value) => {
@@ -82,7 +80,7 @@ export class BookFormComponent implements OnInit {
     }
   }
 
-  addAuthor() {
+  protected addAuthor(): void {
     (this.formBook.get('authors') as FormArray).insert(
       0,
       new FormControl(this.newAuthor.value, [Validators.required])
@@ -90,15 +88,15 @@ export class BookFormComponent implements OnInit {
     this.newAuthor = new FormControl<string>('');
   }
 
-  removeAuthor(index: number): void {
+  protected removeAuthor(index: number): void {
     (this.formBook.get('authors') as FormArray).removeAt(index);
   }
 
-  get authors() {
+  get authors(): FormArray<any> {
     return this.formBook.get('authors') as FormArray;
   }
 
-  onSubmit(formDirective: FormGroupDirective): void {
+  protected onSubmit(formDirective: FormGroupDirective): void {
     if (!this.formBook.valid) return;
 
     if (this.isNewBook(this.book)) {
@@ -108,6 +106,7 @@ export class BookFormComponent implements OnInit {
     } else {
       this.bookService.updateBook(this.formBook.value)?.subscribe(() => {});
     }
+    this.notifyForChange();
   }
 
   private clearForm(formDirective: FormGroupDirective): void {
@@ -116,7 +115,7 @@ export class BookFormComponent implements OnInit {
     this.formBook.reset();
   }
 
-  isNewBook(book: Book | undefined) {
+  private isNewBook(book: Book | undefined): boolean {
     return !book?.id;
   }
 
@@ -124,7 +123,11 @@ export class BookFormComponent implements OnInit {
     return 'You must enter a value';
   }
 
-  closeDialog(): void {
+  protected closeDialog(): void {
     this.dialog.closeAll();
+  }
+
+  private notifyForChange() {
+    this.bookService.notifyAboutChange();
   }
 }

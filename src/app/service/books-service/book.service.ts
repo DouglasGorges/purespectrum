@@ -9,14 +9,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class BookService {
-  private apiUrl = `${environment.apiUrl}`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
   };
+  private apiUrl = `${environment.apiUrl}`;
+  subjectNotifier: Subject<null> = new Subject<null>();
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
+ 
+  notifyAboutChange() {
+    this.subjectNotifier.next(null);
+  }
 
   getBooks(): Observable<Book[]> | undefined {
     return this.http.get<Book[]>(`${this.apiUrl}`, this.httpOptions);
