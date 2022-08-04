@@ -18,7 +18,7 @@ export class BookService {
   private apiUrl = `${environment.apiUrl}`
   subjectNotifier: Subject<null> = new Subject<null>()
 
-  constructor (private http: HttpClient, private toastr: ToastrService) { }
+  constructor (private http: HttpClient, private toastr: ToastrService) {}
 
   notifyAboutChange () {
     this.subjectNotifier.next(null)

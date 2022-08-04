@@ -3,8 +3,7 @@ import { LoginComponent } from './views/login/login.component'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   constructor (public loginComponent: LoginComponent) {}
