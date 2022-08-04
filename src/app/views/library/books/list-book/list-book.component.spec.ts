@@ -2,14 +2,15 @@ import { HttpClientModule } from '@angular/common/http'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { ToastrModule } from 'ngx-toastr'
-import { defer, Observable, of, Subject } from 'rxjs'
+import { of } from 'rxjs'
 import { Book } from 'src/app/models/book'
 import { ListBookComponent } from './list-book.component'
 import { BookService } from 'src/app/service/books-service/book.service'
+import { arraySize, BookServiceStub, fakeAsyncResponse } from 'src/app/service/books-service/book.service.spec'
 
-function fakeAsyncResponse<T> (data: T): Observable<T> {
-  return defer(() => Promise.resolve(data))
-}
+// function fakeAsyncResponse<T> (data: T): Observable<T> {
+//   return defer(() => Promise.resolve(data))
+// }
 
 describe('ListBookComponent', () => {
   let component: ListBookComponent
@@ -17,7 +18,7 @@ describe('ListBookComponent', () => {
 
   const strTest = 'Test'
   const fakeBook: Book = { id: 1, name: strTest }
-  const arraySize = 1
+  // const arraySize = 1
 
   const dialogRefSpyObj = jasmine.createSpyObj({
     afterClosed: of({}),
@@ -25,21 +26,21 @@ describe('ListBookComponent', () => {
   })
   dialogRefSpyObj.componentInstance = { body: '' }
 
-  class BookServiceStub {
-    subjectNotifier: Subject<null> = new Subject<null>()
+  // export class BookServiceStub {
+  //   subjectNotifier: Subject<null> = new Subject<null>()
 
-    getBooks (): Observable<Book[]> {
-      return fakeAsyncResponse(new Array<Book>(arraySize))
-    }
+  //   getBooks (): Observable<Book[]> {
+  //     return fakeAsyncResponse(new Array<Book>(arraySize))
+  //   }
 
-    removeBook (book: Book): Observable<boolean> {
-      return fakeAsyncResponse(!!book.id)
-    }
+  //   removeBook (book: Book): Observable<boolean> {
+  //     return fakeAsyncResponse(!!book.id)
+  //   }
 
-    notifyAboutChange () {
-      this.subjectNotifier.next(null)
-    }
-  }
+  //   notifyAboutChange () {
+  //     this.subjectNotifier.next(null)
+  //   }
+  // }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
