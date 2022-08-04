@@ -14,6 +14,7 @@ interface TableColumns {
   columnDef: string
   header: string
   cell: (element: Book) => string
+  style: { width: string }
 }
 
 @Component({
@@ -40,27 +41,38 @@ export class ListBookComponent implements OnInit, OnDestroy {
       {
         columnDef: 'id',
         header: 'No.',
-        cell: (element: Book) => `${element.id}`
+        cell: (element: Book) => `${element.id}`,
+        style: { width: '10%' }
       },
       {
         columnDef: 'name',
         header: 'Name',
-        cell: (element: Book) => `${element.name}`
+        cell: (element: Book) => `${element.name}`,
+        style: { width: '20%' }
       },
       {
         columnDef: 'year',
         header: 'Year',
-        cell: (element: Book) => `${element.year}`
+        cell: (element: Book) => `${element.year}`,
+        style: { width: '10%' }
       },
       {
         columnDef: 'authors',
         header: 'Authors',
-        cell: (element: Book) => `${element.authors}`
+        cell: (element: Book) => `${element.authors}`,
+        style: { width: '20%' }
       },
       {
         columnDef: 'summary',
         header: 'Summary',
-        cell: (element: Book) => `${element.summary}`
+        cell: (element: Book) => `${element.summary}`,
+        style: { width: '30%' }
+      },
+      {
+        columnDef: 'actions',
+        header: 'Actions',
+        cell: () => '',
+        style: { width: '10%' }
       }
     ]
   }
@@ -76,7 +88,6 @@ export class ListBookComponent implements OnInit, OnDestroy {
 
   private renderedColumnsDef (): void {
     this.displayedColumns = this.columns.map((c) => c.columnDef)
-    this.displayedColumns.push('actions')
   }
 
   private loadData (): void {
