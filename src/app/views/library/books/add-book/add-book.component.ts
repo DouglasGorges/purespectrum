@@ -21,7 +21,8 @@ export class AddBookComponent {
     }
 
     this.dialog.open(BookDialogComponent, {
-      data: dialogData
+      data: dialogData,
+      maxHeight: '90vh'
     })
   }
 }
