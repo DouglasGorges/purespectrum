@@ -1,83 +1,74 @@
-<form
-  [formGroup]="formBook"
-  #formDirective="ngForm"
-  (ngSubmit)="onSubmit(formDirective)"
->
-  <div class="form-group">
-    <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" required />
-        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
-      </mat-form-field>
+<div class="form-container">
+  <form [formGroup]="formBook" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
+    <div class="container">
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill" class="width-100">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" required />
+              <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" class="width-100">
+              <mat-label>Year</mat-label>
+              <input type="text" pattern="\d*" maxlength="4" minlength="4" placeholder="YYYY" matInput
+                formControlName="year" required />
+              <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <ng-container formArrayName="authors">
+              <mat-form-field appearance="fill" class="width-100">
+                <mat-label>Authors</mat-label>
+                <input matInput [formControl]="newAuthor" [required]="!authors.controls.length"
+                  (keyup.enter)="addAuthor(); $event.preventDefault()" (keydown.enter)="$event.preventDefault()" />
+                <button matSuffix mat-icon-button type="button" aria-label="Add" (click)="addAuthor()">
+                  <mat-icon>person_add</mat-icon>
+                </button>
+                <mat-error *ngIf="!formBook.valid || authors.controls.length == 0">You must add at least one Author
+                </mat-error>
+              </mat-form-field>
+            </ng-container>
+          </div>
+          <div class="col-6">
+            <ng-container>
+              <mat-card style="min-height: 2rem;">
+                <mat-label class="authors-label">{{formBook.value.authors.length ? 'Authors added:' : 'No authors added'}}</mat-label>
+                <mat-list>
+                  <mat-list-item *ngFor="let control of authors.controls; index as i">
+                    <button matSuffix mat-icon-button aria-label="Remove" type="button" (click)="removeAuthor(i)">
+                      <mat-icon>person_remove</mat-icon>
+                    </button>
+                    {{ formBook.value.authors[i] }}
+                  </mat-list-item>
+                </mat-list>
+              </mat-card>
+            </ng-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <mat-form-field appearance="fill" class="width-100">
+              <mat-label>Summary</mat-label>
+              <textarea matInput formControlName="summary" rows="5" required></textarea>
+              <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="flex-container">
+            <button mat-raised-button type="reset" class="btn btn-primary mt-4" (click)="closeDialog()">Cancel</button>
+            <button mat-raised-button type="submit" (keydown.enter)="onSubmit(formDirective)" color="primary"
+              class="btn btn-primary mt-4 right min-width-8rem">{{ type?.type }}</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Year</mat-label>
-        <input
-          type="text"
-          pattern="\d*"
-          maxlength="4"
-          minlength="4"
-          placeholder="YYYY"
-          matInput
-          formControlName="year"
-          required
-        />
-        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
-      </mat-form-field>
-    </div>
-    <ng-container formArrayName="authors">
-      <mat-form-field appearance="fill">
-        <mat-label>Authors</mat-label>
-        <input matInput [formControl]="newAuthor" />
-        <button
-          matSuffix
-          mat-icon-button
-          aria-label="Add"
-          (click)="addAuthor()"
-        >
-          <mat-icon>person_add</mat-icon>
-        </button>
-        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
-      </mat-form-field>
-    </ng-container>
-    <ng-container>
-      <mat-list>
-        <mat-list-item *ngFor="let control of authors.controls; index as i">
-          {{ formBook.value.authors[i] }}
-          <button
-            matSuffix
-            mat-icon-button
-            aria-label="Remove"
-            (click)="removeAuthor(i)"
-          >
-            <mat-icon>person_remove</mat-icon>
-          </button>
-        </mat-list-item>
-      </mat-list>
-      <mat-label *ngIf="!authors.controls.length"
-        >The book needs at least one Author</mat-label
-      >
-    </ng-container>
-    <div>
-      <mat-form-field appearance="fill">
-        <mat-label>Summary</mat-label>
-        <input matInput formControlName="summary" required />
-        <mat-error *ngIf="!formBook.valid">{{ errorMessage }}</mat-error>
-      </mat-form-field>
-    </div>
-  </div>
-  <input
-    type="reset"
-    class="btn btn-primary mt-4"
-    value="Cancel"
-    onclick=""
-    (click)="closeDialog()"
-  />
-  <input
-    type="submit"
-    class="btn btn-primary mt-4 right"
-    value="{{ type?.type }}"
-  />
-</form>
+  </form>
+</div>

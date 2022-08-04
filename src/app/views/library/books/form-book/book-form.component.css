@@ -1,0 +1,26 @@
+.width-100 {
+  width: 100%;
+}
+
+mat-form-field,
+mat-card {
+  margin-bottom: 1rem;
+}
+
+.authors-label {
+  color: gray;
+  font-size: 12px;
+}
+
+.mat-icon {
+  color: #3f51b5;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.min-width-8rem {
+  min-width: 8rem;
+}
