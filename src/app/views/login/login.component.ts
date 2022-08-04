@@ -42,10 +42,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onReset () : void {
+  onReset (): void {
     this.ngUnsubscribe.next()
     this.stopLoad()
     this.ngUnsubscribe.complete()
+  }
+
+  onLogOut (): void {
+    sessionStorage.removeItem(this.loggedStr)
   }
 
   private stopLoad (): void {
@@ -58,10 +62,6 @@ export class LoginComponent implements OnInit {
 
   protected get isLoading (): boolean {
     return this.loading
-  }
-
-  logOut (): void {
-    sessionStorage.removeItem(this.loggedStr)
   }
 
   get isLoggedIn (): boolean {
