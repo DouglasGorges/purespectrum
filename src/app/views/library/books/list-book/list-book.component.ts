@@ -8,7 +8,7 @@ import {
 import { Book } from 'src/app/models/book'
 import { ActionType } from '../form-book/book-form.component'
 import { BookService } from 'src/app/service/books-service/book.service'
-import { Subscription } from 'rxjs'
+import { Subscription, timer } from 'rxjs'
 
 interface TableColumns {
   columnDef: string
@@ -29,13 +29,19 @@ export class ListBookComponent implements OnInit, OnDestroy {
   protected columns: TableColumns[]
   protected displayedColumns: string[]
 
-  private notifierSubscription: Subscription =
-    this.bookService.subjectNotifier.subscribe(() => this.loadData())
+  private notifierSubscription: Subscription
 
   constructor (private bookService: BookService, public dialog: MatDialog) {
     this.dataSource = []
     this.displayedColumns = []
     this.tableDataSource = new MatTableDataSource()
+
+    this.notifierSubscription = this.bookService.subjectNotifier.subscribe(() =>
+      // I do not know why but, without the timer, sometimes the list wasn't reloaded
+      timer(5).subscribe(() => {
+        this.loadData()
+      })
+    )
 
     this.columns = [
       {
