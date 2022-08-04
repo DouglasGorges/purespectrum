@@ -1,9 +1,9 @@
 <ng-container>
   <app-add-book></app-add-book>
 
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="standard" [floatLabel]="'always'">
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Robert Martin" #input />
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Robert Martin" #input/>
   </mat-form-field>
 
   <table mat-table [dataSource]="tableDataSource">
@@ -41,5 +41,4 @@
       </td>
     </tr>
   </table>
-  <ng-container></ng-container>
 </ng-container>
