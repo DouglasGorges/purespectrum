@@ -7,6 +7,7 @@
   </mat-form-field>
 
   <table mat-table [dataSource]="tableDataSource" matSort>
+    <caption>Registered Books</caption>
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ column.header }}

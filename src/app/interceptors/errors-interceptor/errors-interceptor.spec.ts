@@ -20,7 +20,7 @@ describe('ErrorsInterceptorComponent', () => {
       ]
     })
     injector = getTestBed()
-    httpMock = injector.get(HttpTestingController)
+    httpMock = injector.inject(HttpTestingController)
   })
 
   afterEach(() => {
