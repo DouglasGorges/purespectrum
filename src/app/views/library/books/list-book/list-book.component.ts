@@ -1,20 +1,62 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { MatSort } from '@angular/material/sort'
 import { MatDialog } from '@angular/material/dialog'
+import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
+import { Subscription, timer } from 'rxjs'
 import {
   BookDialogComponent,
   DialogDataType
-} from 'src/app/shared/dialog/dialog.component'
+} from 'src/app/shared/dialog/book-dialog.component'
 import { Book } from 'src/app/models/book'
 import { ActionType } from '../form-book/book-form.component'
 import { BookService } from 'src/app/service/books-service/book.service'
-import { Subscription } from 'rxjs'
 
 interface TableColumns {
-  columnDef: string;
-  header: string;
-  cell: (element: Book) => string;
+  columnDef: string
+  header: string
+  cell: (element: Book) => string
+  style: { width: string }
 }
+
+const DATA_TABLE_CONF = [
+  {
+    columnDef: 'id',
+    header: 'No.',
+    cell: (element: Book) => `${element.id}`,
+    style: { width: '10%' }
+  },
+  {
+    columnDef: 'name',
+    header: 'Name',
+    cell: (element: Book) => `${element.name}`,
+    style: { width: '20%' }
+  },
+  {
+    columnDef: 'year',
+    header: 'Year',
+    cell: (element: Book) => `${element.year}`,
+    style: { width: '10%' }
+  },
+  {
+    columnDef: 'authors',
+    header: 'Authors',
+    cell: (element: Book) => `${element.authors}`,
+    style: { width: '20%' }
+  },
+  {
+    columnDef: 'summary',
+    header: 'Summary',
+    cell: (element: Book) => `${element.summary}`,
+    style: { width: '30%' }
+  },
+  {
+    columnDef: 'actions',
+    header: 'Actions',
+    cell: () => '',
+    style: { width: '10%' }
+  }
+]
 
 @Component({
   selector: 'app-list-book',
@@ -22,47 +64,28 @@ interface TableColumns {
   styleUrls: ['./list-book.component.css']
 })
 export class ListBookComponent implements OnInit, OnDestroy {
-  private dataSource: Book[]
-  protected tableDataSource: MatTableDataSource<Book>
+  dataSource: Book[]
+  tableDataSource: MatTableDataSource<Book>
 
   protected columns: TableColumns[]
   protected displayedColumns: string[]
+  @ViewChild(MatPaginator) paginator!: MatPaginator
+  @ViewChild(MatSort) sort!: MatSort
 
-  private notifierSubscription: Subscription =
-    this.bookService.subjectNotifier.subscribe(() => this.loadData())
+  private notifierSubscription: Subscription
 
   constructor (private bookService: BookService, public dialog: MatDialog) {
     this.dataSource = []
     this.displayedColumns = []
+    this.columns = DATA_TABLE_CONF
     this.tableDataSource = new MatTableDataSource()
 
-    this.columns = [
-      {
-        columnDef: 'id',
-        header: 'No.',
-        cell: (element: Book) => `${element.id}`
-      },
-      {
-        columnDef: 'name',
-        header: 'Name',
-        cell: (element: Book) => `${element.name}`
-      },
-      {
-        columnDef: 'year',
-        header: 'Year',
-        cell: (element: Book) => `${element.year}`
-      },
-      {
-        columnDef: 'authors',
-        header: 'Authors',
-        cell: (element: Book) => `${element.authors}`
-      },
-      {
-        columnDef: 'summary',
-        header: 'Summary',
-        cell: (element: Book) => `${element.summary}`
-      }
-    ]
+    this.notifierSubscription = this.bookService.subjectNotifier.subscribe(() =>
+      // I do not know why but, without the timer, sometimes the list wasn't reloaded
+      timer(50).subscribe(() => {
+        this.loadData()
+      })
+    )
   }
 
   ngOnInit (): void {
@@ -76,35 +99,43 @@ export class ListBookComponent implements OnInit, OnDestroy {
 
   private renderedColumnsDef (): void {
     this.displayedColumns = this.columns.map((c) => c.columnDef)
-    this.displayedColumns.push('actions')
   }
 
   private loadData (): void {
-    this.bookService.getBooks()?.subscribe((apiResponse) => {
+    this.bookService.getBooks().subscribe((apiResponse) => {
       this.dataSource = apiResponse
-      this.tableDataSource = new MatTableDataSource(this.dataSource)
+      this.tableDataSource = new MatTableDataSource<Book>(this.dataSource)
+
+      this.tableDataSource.paginator = this.paginator
+      this.tableDataSource.sort = this.sort
     })
   }
 
-  protected applyFilter (event: Event): void {
+  applyFilter (event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
   }
 
-  protected edit (book: Book): void {
+  edit (book: Book): void {
     const dialogData: DialogDataType = {
       book,
       type: { type: 'Update' } as ActionType
     }
 
     this.dialog.open(BookDialogComponent, {
-      data: dialogData
+      data: dialogData,
+      maxHeight: '90vh'
     })
   }
 
-  protected remove (book: Book): void {
-    this.bookService.removeBook(book).subscribe(() => {
+  remove (book: Book): boolean {
+    let itWasRemoved = false
+
+    this.bookService.removeBook(book).subscribe((success) => {
       this.loadData()
+      itWasRemoved = success
     })
+
+    return itWasRemoved
   }
 }

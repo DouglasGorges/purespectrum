@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import {
   BookDialogComponent,
   DialogDataType
-} from 'src/app/shared/dialog/dialog.component'
+} from 'src/app/shared/dialog/book-dialog.component'
 import { ActionType } from '../form-book/book-form.component'
 
 @Component({
@@ -14,14 +14,15 @@ import { ActionType } from '../form-book/book-form.component'
 export class AddBookComponent {
   constructor (public dialog: MatDialog) {}
 
-  protected addBook (): void {
+  addBook (): void {
     const dialogData: DialogDataType = {
       book: undefined,
       type: { type: 'Add' } as ActionType
     }
 
     this.dialog.open(BookDialogComponent, {
-      data: dialogData
+      data: dialogData,
+      maxHeight: '90vh'
     })
   }
 }

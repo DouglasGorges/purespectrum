@@ -5,12 +5,14 @@ import {
   tick
 } from '@angular/core/testing'
 import { FormBuilder } from '@angular/forms'
-
 import { LoginComponent } from './login.component'
+import { AccessControl } from 'src/app/shared/accessControl/access-control'
 
 describe('LoginComponent', () => {
   let component: LoginComponent
   let fixture: ComponentFixture<LoginComponent>
+
+  const credentialsStub: AccessControl = { username: 'test', password: 'test' }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,29 +30,35 @@ describe('LoginComponent', () => {
   })
 
   it('should log in', fakeAsync(() => {
-    component.formLogin.setValue({ username: 'test', password: 'test' })
+    component.formLogin.setValue(credentialsStub)
 
     component.onSubmit()
 
-    tick(component.time)
+    tick(component.timeBeforeLogIn)
 
-    expect(sessionStorage.getItem(component.loggedStr)).toBeTruthy()
+    expect(component.isLoggedIn).toBeTruthy()
   }))
 
-  it('should logOut', () => {
-    component.formLogin.setValue({ username: 'test', password: 'test' })
-    component.onSubmit()
-
+  it('should cancel a log in', fakeAsync(() => {
     component.onLogOut()
 
-    expect(sessionStorage.getItem(component.loggedStr)).not.toBeTruthy()
-  })
+    component.formLogin.setValue(credentialsStub)
 
-  it('should cancel', () => {
-    component.formLogin.setValue({ username: 'test', password: 'test' })
-    component.onCancel()
+    component.onSubmit()
+    tick(component.timeBeforeLogIn * 0.5)
+    component.onReset()
 
-    expect(component.formLogin.value.username).not.toBeTruthy()
-    expect(component.formLogin.value.password).not.toBeTruthy()
-  })
+    expect(component.isLoggedIn).not.toBeTruthy()
+  }))
+
+  it('should log out', fakeAsync(() => {
+    component.formLogin.setValue(credentialsStub)
+    component.onSubmit()
+    tick(component.timeBeforeLogIn)
+
+    expect(component.isLoggedIn).toBeTruthy()
+
+    component.onLogOut()
+    expect(component.isLoggedIn).not.toBeTruthy()
+  }))
 })

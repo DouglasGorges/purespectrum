@@ -18,17 +18,17 @@ export class BookService {
   private apiUrl = `${environment.apiUrl}`
   subjectNotifier: Subject<null> = new Subject<null>()
 
-  constructor (private http: HttpClient, private toastr: ToastrService) { }
+  constructor (private http: HttpClient, private toastr: ToastrService) {}
 
   notifyAboutChange () {
     this.subjectNotifier.next(null)
   }
 
-  getBooks (): Observable<Book[]> | undefined {
+  getBooks (): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.apiUrl}`, this.httpOptions)
   }
 
-  addBook (book: Book): Observable<Book> | undefined {
+  addBook (book: Book): Observable<Book> {
     const subject = new Subject<Book>()
 
     this.http
@@ -41,7 +41,7 @@ export class BookService {
     return subject.asObservable()
   }
 
-  updateBook (book: Book): Observable<Book> | undefined {
+  updateBook (book: Book): Observable<Book> {
     const subject = new Subject<Book>()
 
     this.http

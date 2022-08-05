@@ -3,7 +3,7 @@ mat-card {
 }
 
 .center {
-  height: 20em;
+  height: 80vh;
   position: relative;
 }
 .center mat-card {
@@ -17,4 +17,9 @@ mat-card {
 .right {
   position: absolute;
   right: 16px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
 }

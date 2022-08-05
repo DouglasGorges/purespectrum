@@ -34,11 +34,11 @@ export class BookFormComponent implements OnInit {
   @Input() book?: Book
   @Input() type?: ActionType
 
-  protected formBook!: FormGroup
-  protected newAuthor: FormControl<string | null> = new FormControl<string>('')
+  formBook!: FormGroup
+  newAuthor: FormControl<string | null> = new FormControl<string>('')
 
   constructor (
-    private formBuilder: FormBuilder,
+    public formBuilder: FormBuilder,
     private bookService: BookService,
     public dialog: MatDialog
   ) {}
@@ -80,7 +80,7 @@ export class BookFormComponent implements OnInit {
     }
   }
 
-  protected addAuthor (): void {
+  addAuthor (): void {
     if (!this.newAuthor.value) return
 
     (this.formBook.get('authors') as FormArray).insert(
@@ -90,7 +90,7 @@ export class BookFormComponent implements OnInit {
     this.newAuthor = new FormControl<string>('')
   }
 
-  protected removeAuthor (index: number): void {
+  removeAuthor (index: number): void {
     (this.formBook.get('authors') as FormArray).removeAt(index)
   }
 
@@ -98,11 +98,11 @@ export class BookFormComponent implements OnInit {
     return this.formBook.get('authors') as FormArray
   }
 
-  protected onSubmit (formDirective: FormGroupDirective): void {
+  onSubmit (formDirective: FormGroupDirective): void {
     if (!this.formBook.valid) return
 
     if (this.isNewBook(this.book)) {
-      this.bookService.addBook(this.formBook.value)?.subscribe(() => {
+      this.bookService.addBook(this.formBook.value).subscribe(() => {
         this.clearForm(formDirective)
       })
     } else {

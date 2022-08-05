@@ -1,6 +1,6 @@
-import { timer } from 'rxjs'
 import { Component, Injectable, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Subject, takeUntil, timer } from 'rxjs'
 import { AccessControl } from 'src/app/shared/accessControl/access-control'
 
 @Injectable({ providedIn: 'root' })
@@ -13,8 +13,9 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup
 
   private loading = false
-  private readonly loggedStr = 'logged'
-  private readonly timeBeforeLogIn = 1500
+  readonly loggedStr = 'logged'
+  readonly timeBeforeLogIn = 1500
+  protected ngUnsubscribe: Subject<void> = new Subject<void>()
 
   constructor (private formBuilder: FormBuilder) {}
 
@@ -29,14 +30,26 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  protected onSubmit (): void {
+  onSubmit (): void {
     if (this.formLogin.valid) {
       this.startLoad()
-      timer(this.timeBeforeLogIn).subscribe(() => {
-        sessionStorage.setItem(this.loggedStr, 'true')
-        this.stopLoad()
-      })
+      timer(this.timeBeforeLogIn)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(() => {
+          sessionStorage.setItem(this.loggedStr, 'true')
+          this.stopLoad()
+        })
     }
+  }
+
+  onReset (): void {
+    this.ngUnsubscribe.next()
+    this.stopLoad()
+    this.ngUnsubscribe.complete()
+  }
+
+  onLogOut (): void {
+    sessionStorage.removeItem(this.loggedStr)
   }
 
   private stopLoad (): void {
@@ -49,10 +62,6 @@ export class LoginComponent implements OnInit {
 
   protected get isLoading (): boolean {
     return this.loading
-  }
-
-  logOut (): void {
-    sessionStorage.removeItem(this.loggedStr)
   }
 
   get isLoggedIn (): boolean {

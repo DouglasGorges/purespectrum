@@ -1,6 +1,6 @@
 <div class="center">
   <mat-card>
-    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" (reset)="onReset()">
       <div class="form-group">
         <div>
           <mat-form-field appearance="fill">
@@ -22,25 +22,17 @@
           </mat-form-field>
         </div>
       </div>
-      <div style="padding-top: 1em">
-        <input
-          type="reset"
-          class="btn btn-primary mt-4"
-          value="Cancel"
-          onclick=""
-        />
-        <input
-          type="submit"
-          class="btn btn-primary mt-4 right"
-          value="Log In"
-        />
+      <div class="flex-container">
+        <button mat-raised-button type="reset">Cancel</button>
+        <button mat-raised-button color="primary" type="submit">Log In</button>
       </div>
     </form>
-    <mat-card-footer *ngIf="isLoading">
+    <mat-card-footer *ngIf="isLoading; else whenNotLoading">
       <mat-progress-bar
-        style="padding-top: 1em"
+        style="margin-top: 1em"
         mode="indeterminate"
       ></mat-progress-bar>
     </mat-card-footer>
+    <ng-template #whenNotLoading><div style="height: 4px;"></div></ng-template>
   </mat-card>
 </div>
