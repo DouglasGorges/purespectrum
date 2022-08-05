@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { MatSort } from '@angular/material/sort'
 import { MatDialog } from '@angular/material/dialog'
+import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
+import { Subscription, timer } from 'rxjs'
 import {
   BookDialogComponent,
   DialogDataType
@@ -8,9 +11,6 @@ import {
 import { Book } from 'src/app/models/book'
 import { ActionType } from '../form-book/book-form.component'
 import { BookService } from 'src/app/service/books-service/book.service'
-import { Subscription, timer } from 'rxjs'
-import { MatPaginator } from '@angular/material/paginator'
-import { MatSort } from '@angular/material/sort'
 
 interface TableColumns {
   columnDef: string
@@ -18,6 +18,45 @@ interface TableColumns {
   cell: (element: Book) => string
   style: { width: string }
 }
+
+const DATA_TABLE_CONF = [
+  {
+    columnDef: 'id',
+    header: 'No.',
+    cell: (element: Book) => `${element.id}`,
+    style: { width: '10%' }
+  },
+  {
+    columnDef: 'name',
+    header: 'Name',
+    cell: (element: Book) => `${element.name}`,
+    style: { width: '20%' }
+  },
+  {
+    columnDef: 'year',
+    header: 'Year',
+    cell: (element: Book) => `${element.year}`,
+    style: { width: '10%' }
+  },
+  {
+    columnDef: 'authors',
+    header: 'Authors',
+    cell: (element: Book) => `${element.authors}`,
+    style: { width: '20%' }
+  },
+  {
+    columnDef: 'summary',
+    header: 'Summary',
+    cell: (element: Book) => `${element.summary}`,
+    style: { width: '30%' }
+  },
+  {
+    columnDef: 'actions',
+    header: 'Actions',
+    cell: () => '',
+    style: { width: '10%' }
+  }
+]
 
 @Component({
   selector: 'app-list-book',
@@ -38,53 +77,15 @@ export class ListBookComponent implements OnInit, OnDestroy {
   constructor (private bookService: BookService, public dialog: MatDialog) {
     this.dataSource = []
     this.displayedColumns = []
+    this.columns = DATA_TABLE_CONF
     this.tableDataSource = new MatTableDataSource()
 
     this.notifierSubscription = this.bookService.subjectNotifier.subscribe(() =>
       // I do not know why but, without the timer, sometimes the list wasn't reloaded
-      timer(5).subscribe(() => {
+      timer(50).subscribe(() => {
         this.loadData()
       })
     )
-
-    this.columns = [
-      {
-        columnDef: 'id',
-        header: 'No.',
-        cell: (element: Book) => `${element.id}`,
-        style: { width: '10%' }
-      },
-      {
-        columnDef: 'name',
-        header: 'Name',
-        cell: (element: Book) => `${element.name}`,
-        style: { width: '20%' }
-      },
-      {
-        columnDef: 'year',
-        header: 'Year',
-        cell: (element: Book) => `${element.year}`,
-        style: { width: '10%' }
-      },
-      {
-        columnDef: 'authors',
-        header: 'Authors',
-        cell: (element: Book) => `${element.authors}`,
-        style: { width: '20%' }
-      },
-      {
-        columnDef: 'summary',
-        header: 'Summary',
-        cell: (element: Book) => `${element.summary}`,
-        style: { width: '30%' }
-      },
-      {
-        columnDef: 'actions',
-        header: 'Actions',
-        cell: () => '',
-        style: { width: '10%' }
-      }
-    ]
   }
 
   ngOnInit (): void {

@@ -10,8 +10,7 @@ export interface DialogDataType {
 
 @Component({
   selector: 'app-dialog',
-  templateUrl: './book-dialog.component.html',
-  styleUrls: ['./book-dialog.component.css']
+  templateUrl: './book-dialog.component.html'
 })
 export class BookDialogComponent implements OnInit {
   book: Book | undefined
