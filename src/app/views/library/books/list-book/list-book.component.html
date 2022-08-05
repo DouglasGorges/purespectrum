@@ -1,46 +1,50 @@
 <ng-container>
-  <app-add-book></app-add-book>
+  <div class="margin-2vw">
+    <app-add-book></app-add-book>
 
-  <mat-form-field appearance="standard" [floatLabel]="'always'">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Robert Martin" #input/>
-  </mat-form-field>
+    <mat-form-field appearance="standard" [floatLabel]="'always'">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Robert Martin" #input />
+    </mat-form-field>
 
-  <table mat-table [dataSource]="tableDataSource" matSort>
-    <caption>Registered Books</caption>
-    <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ column.header }}
-      </th>
-      <ng-container *ngIf="column.columnDef !== 'actions'; else showActions">
-        <td mat-cell *matCellDef="let row" [ngStyle]="column.style" class="truncate-cell"
-          [matTooltip]="column.cell(row).length > 30 ? column.cell(row) : ''">
-          {{ column.cell(row) }}
-        </td>
+    <table mat-table [dataSource]="tableDataSource" matSort>
+      <caption>Registered Books</caption>
+      <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ column.header }}
+        </th>
+        <ng-container *ngIf="column.columnDef !== 'actions'; else showActions">
+          <td mat-cell *matCellDef="let row" [ngStyle]="column.style" class="truncate-cell"
+            [matTooltip]="column.cell(row).length > 30 ? column.cell(row) : ''">
+            {{ column.cell(row) }}
+          </td>
+        </ng-container>
+        <ng-template #showActions>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button matTooltip="Click to Edit" (click)="edit(row)" class="iconbutton" color="primary">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Click to Delete" (click)="remove(row)" class="iconbutton"
+              color="primary">
+              <mat-icon aria-label="Delete">delete_forever</mat-icon>
+            </button>
+          </td>
+        </ng-template>
       </ng-container>
-      <ng-template #showActions>
-        <td mat-cell *matCellDef="let row">
-          <button mat-icon-button matTooltip="Click to Edit" (click)="edit(row)" class="iconbutton" color="primary">
-            <mat-icon aria-label="Edit">edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Click to Delete" (click)="remove(row)" class="iconbutton" color="primary">
-            <mat-icon aria-label="Delete">delete_forever</mat-icon>
-          </button>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td *ngIf="tableDataSource.data.length == 0" class="mat-cell" [attr.colspan]="columns.length">
+          No records.
         </td>
-      </ng-template>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
-    <tr class="mat-row" *matNoDataRow>
-      <td *ngIf="tableDataSource.data.length == 0" class="mat-cell" colspan="4">
-        No records.
-      </td>
-      <td *ngIf="input.value && tableDataSource.data.length !== 0" class="mat-cell truncate-cell" colspan="4">
-        No data matching the filter "{{ input.value }}"
-      </td>
-    </tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of books"></mat-paginator>
+        <td *ngIf="input.value && tableDataSource.data.length !== 0" class="mat-cell truncate-cell"
+          [attr.colspan]="columns.length">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of books"></mat-paginator>
+  </div>
 </ng-container>
