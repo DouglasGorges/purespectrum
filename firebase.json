@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "pureapplib",
     "public": "public",
     "ignore": [
       "firebase.json",
