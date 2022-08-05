@@ -26,7 +26,8 @@
                 <mat-label>Authors</mat-label>
                 <input matInput [formControl]="newAuthor" [required]="!authors.controls.length"
                   (keyup.enter)="addAuthor(); $event.preventDefault()" (keydown.enter)="$event.preventDefault()" />
-                <button matSuffix mat-icon-button type="button" aria-label="Add" (click)="addAuthor()">
+                <button matSuffix mat-icon-button type="button" aria-label="Add" (click)="addAuthor()"
+                  matTooltip="Add this Author">
                   <mat-icon>person_add</mat-icon>
                 </button>
                 <mat-error *ngIf="!formBook.valid || authors.controls.length == 0">You must add at least one Author
@@ -40,7 +41,8 @@
                 <mat-label class="authors-label">{{formBook.value.authors.length ? 'Authors added:' : 'No authors added'}}</mat-label>
                 <mat-list>
                   <mat-list-item *ngFor="let control of authors.controls; index as i">
-                    <button matSuffix mat-icon-button aria-label="Remove" type="button" (click)="removeAuthor(i)">
+                    <button matSuffix mat-icon-button aria-label="Remove" type="button" (click)="removeAuthor(i)"
+                      matTooltip="Remove this Author">
                       <mat-icon>person_remove</mat-icon>
                     </button>
                     {{ formBook.value.authors[i] }}
