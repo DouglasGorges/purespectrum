@@ -27,7 +27,7 @@ describe('ErrorsInterceptorComponent', () => {
     httpMock.verify()
   })
 
-  it('should create', () => {
-    // expect(component).toBeTruthy()
+  it('should avoid Jasmine Error', () => {
+    // Just to avoid class unit test error
   })
 })
