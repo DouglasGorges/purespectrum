@@ -14,9 +14,10 @@ import { Book } from 'src/app/models/book'
 import { BookService } from 'src/app/service/books-service/book.service'
 
 export interface ActionType {
-  type: 'Add' | 'Update';
+  type: 'Add' | 'Update'
 }
 
+// FormArray validator
 function validateNotEmpty (array: AbstractControl) {
   return (array as FormArray).length
     ? null
@@ -47,10 +48,11 @@ export class BookFormComponent implements OnInit {
     this.createForm(this.book || new Book())
     if (!this.type) this.type = { type: 'Add' }
 
-    this.defineAutoTrimToFormInputs()
+    this.applyAutoTrimToFormInputs()
   }
 
-  private defineAutoTrimToFormInputs (): void {
+  // This will trim every input values on the Form
+  private applyAutoTrimToFormInputs (): void {
     const original = DefaultValueAccessor.prototype.registerOnChange
     DefaultValueAccessor.prototype.registerOnChange = function (fn) {
       return original.call(this, (value) => {
@@ -71,11 +73,10 @@ export class BookFormComponent implements OnInit {
       summary: [book.summary, Validators.required]
     })
 
+    // If we have data coming will be set on FormArray by loop
     if (book.authors) {
       for (const author of book.authors) {
-        (this.formBook.get('authors') as FormArray).push(
-          new FormControl(author, Validators.required)
-        )
+        this.authors.push(new FormControl(author, Validators.required))
       }
     }
   }
@@ -83,15 +84,16 @@ export class BookFormComponent implements OnInit {
   addAuthor (): void {
     if (!this.newAuthor.value) return
 
-    (this.formBook.get('authors') as FormArray).insert(
+    this.authors.insert(
       0,
       new FormControl(this.newAuthor.value, [Validators.required])
     )
+
     this.newAuthor = new FormControl<string>('')
   }
 
   removeAuthor (index: number): void {
-    (this.formBook.get('authors') as FormArray).removeAt(index)
+    this.authors.removeAt(index)
   }
 
   get authors (): FormArray<any> {

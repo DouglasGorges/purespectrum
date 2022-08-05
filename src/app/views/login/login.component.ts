@@ -30,21 +30,24 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  // Here we have a timer to emulate a backend call.
+  // Once clicked on Log In button, if We click on Cancel button the request will be canceled bay the .pipe() func
+  // If successful, will set data on session storage and AppComponent will allow you to go in the app.
   onSubmit (): void {
     if (this.formLogin.valid) {
-      this.startLoad()
+      this.startLoadBar()
       timer(this.timeBeforeLogIn)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(() => {
           sessionStorage.setItem(this.loggedStr, 'true')
-          this.stopLoad()
+          this.stopLoadBar()
         })
     }
   }
 
   onReset (): void {
     this.ngUnsubscribe.next()
-    this.stopLoad()
+    this.stopLoadBar()
     this.ngUnsubscribe.complete()
   }
 
@@ -52,11 +55,11 @@ export class LoginComponent implements OnInit {
     sessionStorage.removeItem(this.loggedStr)
   }
 
-  private stopLoad (): void {
+  private stopLoadBar (): void {
     this.loading = false
   }
 
-  private startLoad (): void {
+  private startLoadBar (): void {
     this.loading = true
   }
 

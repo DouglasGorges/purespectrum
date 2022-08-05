@@ -8,6 +8,7 @@ import { LoginComponent } from './views/login/login.component'
 export class AppComponent {
   constructor (public loginComponent: LoginComponent) {}
 
+  // We insert our log in control here because ever modification (like log out or close the nav) will drop the app back
   isLoggedIn (): boolean {
     return this.loginComponent.isLoggedIn
   }

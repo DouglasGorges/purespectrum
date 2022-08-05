@@ -9,12 +9,14 @@ export class ErrorService {
   constructor (private toastr: ToastrService) {}
 
   public handleError (err: HttpErrorResponse) {
+    // Frontend errors
     if (err.error instanceof ErrorEvent) {
       this.toastr.error(
         'An error occurred'.concat(
           err.error.message ? `: ${err.error.message}` : ''
         )
       )
+      // API errors
     } else {
       this.toastr.error(
         this.detailExtractor(err),

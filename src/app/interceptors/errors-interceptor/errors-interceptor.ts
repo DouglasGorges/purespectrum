@@ -8,6 +8,8 @@ import {
 import { Observable } from 'rxjs'
 import { ErrorService } from '../../service/errors-service/error.service'
 
+// Interceptor for every Http call.
+// This check if the Response send a Error and will call the ErrorService to handle with
 @Injectable()
 export class ErrorsInterceptor extends ErrorService implements HttpInterceptor {
   public intercept (
