@@ -6,8 +6,8 @@
     "start": "npm run lint:fix && ng serve",
     "build": "npm run lint && npm run test-no-watch && npm run angular-builds",
     "watch": "ng build --watch --configuration development",
-    "test": "shx rm -rf coverage && ng test",
-    "test-no-watch": "shx rm -rf coverage && ng test --watch=false",
+    "test": "ng test",
+    "test-no-watch": "ng test --watch=false",
     "angular-builds": "ng build",
     "lint": "npx eslint --max-warnings 0",
     "lint:fix": "npx eslint --fix"
@@ -49,7 +49,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "prettier": "2.7.1",
-    "shx": "^0.3.4",
     "typescript": "~4.7.2"
   }
 }
