@@ -29,6 +29,7 @@ describe('ErrorsInterceptorComponent', () => {
     httpService = TestBed.inject(BookService)
   })
 
+  // We could not resolve this test in time
   it('should triggered the interceptor', () => {
     const interceptorSpy = jasmine.createSpyObj<ErrorsInterceptor>({
       intercept: undefined,
