@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run lint:fix && ng serve",
-    "build": "npm i && npm run lint && npm run test-no-watch && npm run angular-builds",
+    "build": "npm run lint && npm run test && npm run angular-builds",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test-no-watch": "ng test --watch=false",
