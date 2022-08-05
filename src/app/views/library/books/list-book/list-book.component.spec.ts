@@ -12,39 +12,17 @@ import {
   fakeAsyncResponse
 } from 'src/app/service/books-service/book.service.spec'
 
-// function fakeAsyncResponse<T> (data: T): Observable<T> {
-//   return defer(() => Promise.resolve(data))
-// }
-
 describe('ListBookComponent', () => {
   let component: ListBookComponent
   let fixture: ComponentFixture<ListBookComponent>
 
   const strTest = 'Test'
   const fakeBook: Book = { id: 1, name: strTest }
-  // const arraySize = 1
-
   const dialogRefSpyObj = jasmine.createSpyObj({
     afterClosed: of({}),
     close: null
   })
   dialogRefSpyObj.componentInstance = { body: '' }
-
-  // export class BookServiceStub {
-  //   subjectNotifier: Subject<null> = new Subject<null>()
-
-  //   getBooks (): Observable<Book[]> {
-  //     return fakeAsyncResponse(new Array<Book>(arraySize))
-  //   }
-
-  //   removeBook (book: Book): Observable<boolean> {
-  //     return fakeAsyncResponse(!!book.id)
-  //   }
-
-  //   notifyAboutChange () {
-  //     this.subjectNotifier.next(null)
-  //   }
-  // }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -64,6 +42,14 @@ describe('ListBookComponent', () => {
 
   it('should get a books list on init', () => {
     expect(component.tableDataSource.data.length).toEqual(arraySize)
+  })
+
+  // We could not resolve this test in time
+  it('should trigger a notification by BookService', () => {
+    const httpService: BookService = TestBed.inject(BookService)
+    httpService.notifyAboutChange()
+
+    // Missing expectations
   })
 
   it('should open modal to update book', () => {

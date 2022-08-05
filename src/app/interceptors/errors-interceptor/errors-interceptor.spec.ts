@@ -1,33 +1,44 @@
-import { getTestBed, TestBed } from '@angular/core/testing'
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing'
-import { BookService } from 'src/app/service/books-service/book.service'
+import { TestBed } from '@angular/core/testing'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { ToastrService } from 'ngx-toastr'
 import { ErrorsInterceptor } from './errors-interceptor'
+import { BookService } from 'src/app/service/books-service/book.service'
 
 describe('ErrorsInterceptorComponent', () => {
-  let injector: TestBed
-  let httpMock: HttpTestingController
+  let httpService: BookService
+  let toastrService: jasmine.SpyObj<ToastrService>
 
-  beforeEach(async () => {
+  beforeEach(() => {
+    toastrService = jasmine.createSpyObj<ToastrService>('ToasterService', [
+      'error'
+    ])
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         BookService,
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true }
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: ErrorsInterceptor,
+          multi: true
+        },
+        { provide: ToastrService, useValue: toastrService }
       ]
     })
-    injector = getTestBed()
-    httpMock = injector.inject(HttpTestingController)
+    httpService = TestBed.inject(BookService)
   })
 
-  afterEach(() => {
-    httpMock.verify()
-  })
+  // We could not resolve this test in time
+  it('should triggered the interceptor', () => {
+    const interceptorSpy = jasmine.createSpyObj<ErrorsInterceptor>({
+      intercept: undefined,
+      handleError: undefined
+    })
 
-  it('should avoid Jasmine Error', () => {
-    // Just to avoid class unit test error
+    httpService.getBooks().subscribe((booksList) => {
+      expect(booksList).toBeTruthy()
+      expect(interceptorSpy).toHaveBeenCalled()
+    })
   })
 })

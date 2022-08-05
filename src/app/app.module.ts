@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { BookDialogComponent } from './shared/dialog/book-dialog.component'
 
+import { HeaderComponent } from './shared/header/header.component'
 import { LibraryComponent } from './views/library/library.component'
 import { AddBookComponent } from './views/library/books/add-book/add-book.component'
 import { ListBookComponent } from './views/library/books/list-book/list-book.component'
@@ -37,7 +38,8 @@ import { ErrorsInterceptor } from './interceptors/errors-interceptor/errors-inte
     LibraryComponent,
     ListBookComponent,
     BookFormComponent,
-    BookDialogComponent
+    BookDialogComponent,
+    HeaderComponent
   ],
   imports: [
     FormsModule,

@@ -22,3 +22,7 @@ table {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.margin-2vw {
+  margin: 2vw;
+}

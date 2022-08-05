@@ -88,8 +88,14 @@ describe('BookFormComponent', () => {
   })
 
   it('should not submit', () => {
+    const addBookSpy = spyOn(TestBed.inject(BookService), 'addBook')
+    const updateBookSpy = spyOn(TestBed.inject(BookService), 'updateBook')
+
     component.formBook.setErrors({ error: true })
     component.onSubmit(formGroupDirective)
+
+    expect(addBookSpy).not.toHaveBeenCalled()
+    expect(updateBookSpy).not.toHaveBeenCalled()
   })
 
   it('should update a book', () => {
