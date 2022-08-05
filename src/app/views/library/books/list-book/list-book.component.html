@@ -6,9 +6,9 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Robert Martin" #input/>
   </mat-form-field>
 
-  <table mat-table [dataSource]="tableDataSource">
+  <table mat-table [dataSource]="tableDataSource" matSort>
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ column.header }}
       </th>
       <ng-container *ngIf="column.columnDef !== 'actions'; else showActions">
@@ -29,7 +29,7 @@
       </ng-template>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
     <tr class="mat-row" *matNoDataRow>
@@ -41,4 +41,5 @@
       </td>
     </tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of books"></mat-paginator>
 </ng-container>

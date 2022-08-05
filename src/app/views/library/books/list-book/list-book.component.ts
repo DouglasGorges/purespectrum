@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { MatTableDataSource } from '@angular/material/table'
 import {
@@ -9,6 +15,8 @@ import { Book } from 'src/app/models/book'
 import { ActionType } from '../form-book/book-form.component'
 import { BookService } from 'src/app/service/books-service/book.service'
 import { Subscription, timer } from 'rxjs'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSort } from '@angular/material/sort'
 
 interface TableColumns {
   columnDef: string
@@ -28,6 +36,8 @@ export class ListBookComponent implements OnInit, OnDestroy {
 
   protected columns: TableColumns[]
   protected displayedColumns: string[]
+  @ViewChild(MatPaginator) paginator!: MatPaginator
+  @ViewChild(MatSort) sort!: MatSort
 
   private notifierSubscription: Subscription
 
@@ -99,7 +109,10 @@ export class ListBookComponent implements OnInit, OnDestroy {
   private loadData (): void {
     this.bookService.getBooks().subscribe((apiResponse) => {
       this.dataSource = apiResponse
-      this.tableDataSource = new MatTableDataSource(this.dataSource)
+      this.tableDataSource = new MatTableDataSource<Book>(this.dataSource)
+
+      this.tableDataSource.paginator = this.paginator
+      this.tableDataSource.sort = this.sort
     })
   }
 
