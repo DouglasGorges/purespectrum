@@ -12,12 +12,7 @@
         <div>
           <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
-            <input
-              matInput
-              formControlName="password"
-              type="password"
-              required
-            />
+            <input matInput formControlName="password" type="password" required />
             <mat-error *ngIf="!formLogin.valid">{{ errorMessage }}</mat-error>
           </mat-form-field>
         </div>
@@ -28,11 +23,10 @@
       </div>
     </form>
     <mat-card-footer *ngIf="isLoading; else whenNotLoading">
-      <mat-progress-bar
-        style="margin-top: 1em"
-        mode="indeterminate"
-      ></mat-progress-bar>
+      <mat-progress-bar style="margin-top: 1em" mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
-    <ng-template #whenNotLoading><div style="height: 4px;"></div></ng-template>
+    <ng-template #whenNotLoading>
+      <div style="height: 4px;"></div>
+    </ng-template>
   </mat-card>
 </div>

@@ -12,6 +12,7 @@ import { Book } from 'src/app/models/book'
 import { ActionType } from '../form-book/book-form.component'
 import { BookService } from 'src/app/service/books-service/book.service'
 
+// Data structure who we'll sendo to Table List
 interface TableColumns {
   columnDef: string
   header: string
@@ -19,6 +20,7 @@ interface TableColumns {
   style: { width: string }
 }
 
+// Data sended to Table List
 const DATA_TABLE_CONF = [
   {
     columnDef: 'id',
@@ -64,7 +66,6 @@ const DATA_TABLE_CONF = [
   styleUrls: ['./list-book.component.css']
 })
 export class ListBookComponent implements OnInit, OnDestroy {
-  dataSource: Book[]
   tableDataSource: MatTableDataSource<Book>
 
   protected columns: TableColumns[]
@@ -72,17 +73,17 @@ export class ListBookComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
 
+  // This is a subscription to listen data changes and refresh the Table List
   private notifierSubscription: Subscription
 
   constructor (private bookService: BookService, public dialog: MatDialog) {
-    this.dataSource = []
     this.displayedColumns = []
     this.columns = DATA_TABLE_CONF
     this.tableDataSource = new MatTableDataSource()
 
     this.notifierSubscription = this.bookService.subjectNotifier.subscribe(() =>
-      // I do not know why but, without the timer, sometimes the list wasn't reloaded
-      timer(50).subscribe(() => {
+      // We do not know why but, without the timer, sometimes the list wasn't reloaded
+      timer(500).subscribe(() => {
         this.loadData()
       })
     )
@@ -103,12 +104,14 @@ export class ListBookComponent implements OnInit, OnDestroy {
 
   private loadData (): void {
     this.bookService.getBooks().subscribe((apiResponse) => {
-      this.dataSource = apiResponse
-      this.tableDataSource = new MatTableDataSource<Book>(this.dataSource)
-
-      this.tableDataSource.paginator = this.paginator
-      this.tableDataSource.sort = this.sort
+      this.tableDataSource = new MatTableDataSource<Book>(apiResponse)
+      this.applyPaginatorAndSort()
     })
+  }
+
+  private applyPaginatorAndSort () {
+    this.tableDataSource.paginator = this.paginator
+    this.tableDataSource.sort = this.sort
   }
 
   applyFilter (event: Event): void {

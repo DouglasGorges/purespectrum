@@ -20,6 +20,7 @@ export class BookService {
 
   constructor (private http: HttpClient, private toastr: ToastrService) {}
 
+  // A Subject to notify any component who wnats to know about data changes
   notifyAboutChange () {
     this.subjectNotifier.next(null)
   }
@@ -27,6 +28,8 @@ export class BookService {
   getBooks (): Observable<Book[]> {
     return this.http.get<Book[]>(`${this.apiUrl}`, this.httpOptions)
   }
+
+  // Every Http functions below have a Subject to let us call Toastr service
 
   addBook (book: Book): Observable<Book> {
     const subject = new Subject<Book>()

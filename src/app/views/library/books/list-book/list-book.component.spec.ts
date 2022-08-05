@@ -6,7 +6,11 @@ import { of } from 'rxjs'
 import { Book } from 'src/app/models/book'
 import { ListBookComponent } from './list-book.component'
 import { BookService } from 'src/app/service/books-service/book.service'
-import { arraySize, BookServiceStub, fakeAsyncResponse } from 'src/app/service/books-service/book.service.spec'
+import {
+  arraySize,
+  BookServiceStub,
+  fakeAsyncResponse
+} from 'src/app/service/books-service/book.service.spec'
 
 // function fakeAsyncResponse<T> (data: T): Observable<T> {
 //   return defer(() => Promise.resolve(data))
@@ -59,7 +63,7 @@ describe('ListBookComponent', () => {
   })
 
   it('should get a books list on init', () => {
-    expect(component.dataSource.length).toEqual(arraySize)
+    expect(component.tableDataSource.data.length).toEqual(arraySize)
   })
 
   it('should open modal to update book', () => {
