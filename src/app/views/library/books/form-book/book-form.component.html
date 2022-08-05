@@ -38,7 +38,8 @@
           <div class="col-6">
             <ng-container>
               <mat-card style="min-height: 2rem;">
-                <mat-label class="authors-label">{{formBook.value.authors.length ? 'Authors added:' : 'No authors added'}}</mat-label>
+                <mat-label class="authors-label">
+                  {{formBook.value.authors.length ? 'Authors added:' : 'No authors added'}}</mat-label>
                 <mat-list>
                   <mat-list-item *ngFor="let control of authors.controls; index as i">
                     <button matSuffix mat-icon-button aria-label="Remove" type="button" (click)="removeAuthor(i)"

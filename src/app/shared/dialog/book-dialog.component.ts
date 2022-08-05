@@ -4,8 +4,8 @@ import { Book } from 'src/app/models/book'
 import { ActionType } from 'src/app/views/library/books/form-book/book-form.component'
 
 export interface DialogDataType {
-  book: Book | undefined;
-  type: ActionType;
+  book: Book | undefined
+  type: ActionType
 }
 
 @Component({
