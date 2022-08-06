@@ -3,12 +3,11 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "build": "npm run lint && npm run test-no-watch && npm run angular-builds",
+    "build": "ng build",
     "start": "npm run lint:fix && ng serve",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test-no-watch": "ng test --browsers ChromeHeadless --watch=false",
-    "angular-builds": "ng build",
     "lint": "npx eslint --max-warnings 0",
     "lint:fix": "npx eslint --fix"
   },
