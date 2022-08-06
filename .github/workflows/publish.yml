@@ -1,0 +1,42 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: browser-actions/setup-firefox@latest
+      - run: npm run lint:fix && npm run lint
+
+  test:
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: browser-actions/setup-firefox@latest
+      - run: npm run test-no-watch
+
+  build:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm run build
+      - uses: browser-actions/setup-firefox@latest
+      - run: npm run build
+
+  deploy_publish:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PUREAPP_LIBRARY }}'
+          channelId: live
+          projectId: pureapp-library
