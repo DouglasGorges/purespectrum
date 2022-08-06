@@ -4,7 +4,7 @@ PureApp looks to be a full library manager. For now, it just show the books regi
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![Deploy to Firebase](https://github.com/DouglasGorges/purespectrum/actions/workflows/firebase-hosting-merge.yml/badge.svg)
 
 ## Features
 
@@ -13,7 +13,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Edit and delete books from database
 
 ## How to use
-Go to [PureApp Library]()
+Go to [PureApp Library](https://pureapp-library.web.app)
 ### How to log in
 At this moment, every user and password will be accepted.
 ### How to ADD a book
