@@ -6,6 +6,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 [![Lint](https://github.com/DouglasGorges/purespectrum/actions/workflows/lint-merge.yml/badge.svg?branch=main)](https://github.com/DouglasGorges/purespectrum/actions/workflows/lint-merge.yml)&nbsp;&nbsp;&nbsp;&nbsp;[![Unit tests](https://github.com/DouglasGorges/purespectrum/actions/workflows/test-merge.yml/badge.svg?branch=main)](https://github.com/DouglasGorges/purespectrum/actions/workflows/test-merge.yml)&nbsp;&nbsp;&nbsp;&nbsp;[![Build](https://github.com/DouglasGorges/purespectrum/actions/workflows/build-merge.yml/badge.svg?branch=main)](https://github.com/DouglasGorges/purespectrum/actions/workflows/build-merge.yml)&nbsp;&nbsp;&nbsp;&nbsp;![Deploy to Firebase](https://github.com/DouglasGorges/purespectrum/actions/workflows/firebase-hosting-merge.yml/badge.svg)
 
+[Unit Tests Coverage Report](https://htmlpreview.github.io/?https://github.com/DouglasGorges/purespectrum/blob/main/coverage/pure-app/index.html)
+
 ## Features
 
 - Add a new book to the database
