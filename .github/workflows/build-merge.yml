@@ -11,5 +11,5 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
       - uses: browser-actions/setup-firefox@latest
-      - run: ng build
+      - run: npm build
         
