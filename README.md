@@ -1,6 +1,6 @@
-# PureApp Library
+# Book Comet
 ## A complete library app
-PureApp looks to be a full library manager. For now, it just show the books registered on and, on that, you can update it or delete it and also add a new one.
+Book Comet looks to be a full library manager. For now, it just show the books registered on and, on that, you can update it or delete it and also add a new one.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
@@ -13,9 +13,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - Edit and delete books from database
 
 ## How to use
-Go to [PureApp Library](https://pureapp-library.web.app)
+Go to [bookcomet.com](https://pureapp-library.web.app)
 ### How to log in
 At this moment, every user and password will be accepted.
+### How to log out
+Just close your browser.
 ### How to ADD a book
 Click on 'New Book +' button. Will be opened a dialog to insert book's data.
 
@@ -40,7 +42,7 @@ By clicking on trash icon, the application will try to delete the book from API 
 
 ## Installation
 
-- Use the package manager [npm](https://www.npmjs.com) to install PureApp Library.
+- Use the package manager [npm](https://www.npmjs.com) to install Book Comet Library.
 - Clone this git repo on [main](https://github.com/DouglasGorges/purespectrum/tree/main) branch.
 - Open your shell inside the cloned folder and type:
 ```bash

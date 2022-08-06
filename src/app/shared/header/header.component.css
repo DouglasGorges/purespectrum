@@ -8,3 +8,14 @@ p {
   margin: 0px 0px 0px 109px;
   padding-top: 16px;
 }
+
+/* Rotate the icon */
+p > span {
+  margin-right: 1rem;
+
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
