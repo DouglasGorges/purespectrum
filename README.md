@@ -16,6 +16,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Go to [PureApp Library](https://pureapp-library.web.app)
 ### How to log in
 At this moment, every user and password will be accepted.
+### How to log out
+Just close your browser.
 ### How to ADD a book
 Click on 'New Book +' button. Will be opened a dialog to insert book's data.
 
