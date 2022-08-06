@@ -4,7 +4,7 @@ Book Comet looks to be a full library e-commerce. For now, it just show the book
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
-![Deploy to Firebase](https://github.com/DouglasGorges/purespectrum/actions/workflows/firebase-hosting-merge.yml/badge.svg)
+[![Lint](https://github.com/DouglasGorges/purespectrum/actions/workflows/lint-pull-request.yml/badge.svg?branch=main)](https://github.com/DouglasGorges/purespectrum/actions/workflows/lint-pull-request.yml)&nbsp;&nbsp;&nbsp;&nbsp;[![Test](https://github.com/DouglasGorges/purespectrum/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/DouglasGorges/purespectrum/actions/workflows/test.yml)&nbsp;&nbsp;&nbsp;&nbsp;![Deploy to Firebase](https://github.com/DouglasGorges/purespectrum/actions/workflows/firebase-hosting-merge.yml/badge.svg)
 
 ## Features
 

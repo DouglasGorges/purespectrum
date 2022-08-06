@@ -1,0 +1,12 @@
+name: Lint
+'on': pull_request
+
+jobs:
+  build_and_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci && npm run build
+      - uses: browser-actions/setup-firefox@latest
+      - run: npm run lint:fix && npm run lint
+        

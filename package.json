@@ -7,8 +7,7 @@
     "start": "npm run lint:fix && ng serve",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test-no-watch": "ng test --watch=false",
-    "angular-builds": "ng build",
+    "test-no-watch": "ng test --browsers ChromeHeadless --watch=false",
     "lint": "npx eslint --max-warnings 0",
     "lint:fix": "npx eslint --fix"
   },
