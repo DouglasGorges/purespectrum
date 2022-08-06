@@ -18,11 +18,14 @@ Go to [bookcomet.com](https://pureapp-library.web.app)
 At this moment, every user and password will be accepted.
 ### How to log out
 Just close your browser.
+
+(A log out button may come in next versions)
 ### How to ADD a book
 Click on 'New Book +' button. Will be opened a dialog to insert book's data.
 
-p.s: On the 'Author' filed, you'll need to click on icon to insert a new Author at the list. To remove, it's just click on the icon who refers to the one who you want to drop away.
-By clicking on 'Add' button, the application will try to register the book on the API and, if everything goes to be allrigth, a success message will be showed.
+p.s: On the 'Author' input, you'll need to click on icon to insert a new Author at the list. To remove, it's just click on the icon who refers to the one who you want to drop away.
+
+By clicking on 'Add' button, the application will try to register the book on the API and, if everything goes rigth, a success message will be showed.
 
 The dialog will be stand opened. This is to let you add many books as you want without needs to open the dialog every time.
 Once finished, you can close it by clicking outside of them or pressing 'Cancel' button.
@@ -32,13 +35,16 @@ Also there, you'll be able to update and delete them.
 
 You can filter the books registered just inserting a few words on 'Filter' input.
 ### To UPDATE a book data
-In the list view, click on the pencil icon. A dialog should be opened with the book data.
-Just modify everithing you want.
-By clicking on 'Update' button, the application will try to register the book new data on the API and, if everything goes to be allrigth, a success message will be showed.
+In the list view, click on the pencil icon and a dialog should be opened with the book data.
+Just modify everything you want.
+
+By clicking on 'Update' button, the application will try to register the book's new data on the API and, if everything goes rigth, a success message will be showed.
 ### To DELETE a book
 In the list, you'll need just to click on trash icon.
-Be carefull, no confirm messages was implemented yet.
-By clicking on trash icon, the application will try to delete the book from API and, if everything goes to be allrigth, a success message will be showed.
+
+Be carefull, no confirm messages was implemented yet. (This feature is comming)
+
+By clicking on trash icon, the application will try to delete the book from API and, if everything goes rigth, a success message will be showed.
 
 ## Installation
 
