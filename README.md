@@ -1,6 +1,6 @@
 # Book Comet
 ## A complete library app
-Book Comet looks to be a full library manager. For now, it just show the books registered on and, on that, you can update it or delete it and also add a new one.
+Book Comet looks to be a full library e-commerce. For now, it just show the books registered on and, on that, you can update it or delete it and also add a new one.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
