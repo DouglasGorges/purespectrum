@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://publishing-house-service.herokuapp.com/api/v1/books/'
-};
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

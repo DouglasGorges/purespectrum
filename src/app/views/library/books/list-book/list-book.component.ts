@@ -135,10 +135,10 @@ export class ListBookComponent implements OnInit, OnDestroy {
     let itWasRemoved = false
 
     // if (confirm(`Are you sure to delete ${book.name}, ${book.year}?`)) {
-      this.bookService.removeBook(book).subscribe((success) => {
-        this.loadData()
-        itWasRemoved = success
-      })
+    this.bookService.removeBook(book).subscribe((success) => {
+      this.loadData()
+      itWasRemoved = success
+    })
     // }
 
     return itWasRemoved

@@ -30,7 +30,7 @@
                   matTooltip="Add this Author">
                   <mat-icon>person_add</mat-icon>
                 </button>
-                <mat-error *ngIf="!formBook.valid || authors.controls.length == 0">You must add at least one Author
+                <mat-error *ngIf="!formBook.valid || authors.controls.length === 0">You must add at least one Author
                 </mat-error>
               </mat-form-field>
             </ng-container>

@@ -62,7 +62,6 @@ describe('ListBookComponent', () => {
   })
 
   it('should remove a book from API', () => {
-    const lintTestFail = false;
     // const windowSpy = spyOn(window, 'confirm')
     const serviceSpy = spyOn(
       TestBed.inject(BookService),
