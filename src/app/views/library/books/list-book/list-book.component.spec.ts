@@ -62,13 +62,13 @@ describe('ListBookComponent', () => {
   })
 
   it('should remove a book from API', () => {
-    // const windowSpy = spyOn(window, 'confirm')
+    const windowSpy = spyOn(window, 'confirm')
     const serviceSpy = spyOn(
       TestBed.inject(BookService),
       'removeBook'
     ).and.returnValue(fakeAsyncResponse(true))
 
-    // windowSpy.and.returnValue(true)
+    windowSpy.and.returnValue(true)
     component.remove(fakeBook)
 
     expect(serviceSpy).toHaveBeenCalled()
