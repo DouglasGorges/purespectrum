@@ -42,9 +42,7 @@ Just modify everything you want.
 
 By clicking on 'Update' button, the application will try to register the book's new data on the API and, if everything goes rigth, a success message will be showed.
 ### To DELETE a book
-In the list, you'll need just to click on trash icon.
-
-Be carefull, no confirm messages was implemented yet. (This feature is comming)
+In the list, you'll need to click on trash icon. After that, it's just to click 'Ok' to proceed with.
 
 By clicking on trash icon, the application will try to delete the book from API and, if everything goes rigth, a success message will be showed.
 
