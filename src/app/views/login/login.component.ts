@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Injectable, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Subject, takeUntil, timer } from 'rxjs'
 import { AccessControl } from 'src/app/shared/accessControl/access-control'
 
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   formLogin!: FormGroup
 
   private loading = false
@@ -16,9 +17,7 @@ export class LoginComponent implements OnInit {
   readonly timeBeforeLogIn = 1500
   protected ngUnsubscribe: Subject<void> = new Subject<void>()
 
-  constructor (private formBuilder: FormBuilder) {}
-
-  ngOnInit (): void {
+  constructor (private formBuilder: FormBuilder) {
     this.createForm(new AccessControl())
   }
 
