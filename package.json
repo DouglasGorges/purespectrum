@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test-no-watch": "ng test --browsers ChromeHeadless --watch=false",
-    "lint": "npx eslint --max-warnings 0",
-    "lint:fix": "npx eslint --fix"
+    "lint": "ng lint --max-warnings 0",
+    "lint:fix": "ng lint --fix"
   },
   "private": true,
   "dependencies": {
@@ -31,12 +31,17 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.1.0",
+    "@angular-eslint/builder": "14.0.2",
+    "@angular-eslint/eslint-plugin": "14.0.2",
+    "@angular-eslint/eslint-plugin-template": "14.0.2",
+    "@angular-eslint/schematics": "14.0.2",
+    "@angular-eslint/template-parser": "14.0.2",
     "@angular/cli": "~14.1.0",
     "@angular/compiler-cli": "^14.1.0",
     "@types/jasmine": "~4.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
-    "eslint": "^8.21.0",
+    "@typescript-eslint/eslint-plugin": "5.29.0",
+    "@typescript-eslint/parser": "5.29.0",
+    "eslint": "^8.18.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",
